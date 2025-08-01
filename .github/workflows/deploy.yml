@@ -1,0 +1,57 @@
+name: Build & Publish Flutter Web to /docs on main
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write  # needed to push back to main
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo (including history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # persist credentials so we can push later
+          persist-credentials: true
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: stable
+
+      - name: Enable web
+        run: flutter config --enable-web
+
+      - name: Get deps
+        run: flutter pub get
+
+      - name: Build Flutter Web
+        run: flutter build web --release
+
+      - name: Prepare docs directory
+        run: |
+          rm -rf docs
+          mkdir -p docs
+          cp -R build/web/* docs/
+          # make sure Pages doesn't try to process with Jekyll
+          touch docs/.nojekyll
+          # fallback for client-side routing
+          cp docs/index.html docs/404.html
+
+      - name: Commit and push if changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # avoid infinite loop by detecting if this commit is already the deploy commit
+          if git diff --quiet; then
+            echo "No changes to publish."
+            exit 0
+          fi
+          git add docs
+          git commit -m "Deploy Flutter Web to /docs [skip ci]"
+          git push origin main
