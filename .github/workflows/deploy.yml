@@ -10,28 +10,36 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: true
 
-      - name: Setup Flutter
+      - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.29.0'
 
-      - name: Enable web
+      - name: Enable web support
         run: flutter config --enable-web
 
-      - name: Get deps
+      - name: Get dependencies
         run: flutter pub get
 
-      - name: Build web
+      - name: Build Flutter Web
         run: flutter build web --release
 
-      - name: Prepare publish dir
+      - name: Fix base href for GitHub Pages (use relative)
         run: |
+          # Replace absolute base with relative so assets load correctly on repo pages
+          sed -i 's|<base href=\"/\">|<base href=\"./\">|g' build/web/index.html
+
+      - name: Prepare publish directory
+        run: |
+          # Prevent Jekyll processing and enable client-side routing fallback
           touch build/web/.nojekyll
           cp build/web/index.html build/web/404.html
 
