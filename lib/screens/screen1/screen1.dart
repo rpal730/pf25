@@ -4,12 +4,9 @@ import 'package:flutter_web_portfolio_2025/res/tappable_effect.dart';
 import 'package:flutter_web_portfolio_2025/res/theme/app_colors.dart';
 import 'package:flutter_web_portfolio_2025/res/ui_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 class ProfileHero extends StatelessWidget {
-  
-  const ProfileHero({
-    super.key,
-   
-  });
+  const ProfileHero({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +24,7 @@ class ProfileHero extends StatelessWidget {
                 top: 0,
                 left: 0,
                 right: 0,
-                child: Container(
-                  width: figmaScreenWidth,
-                  height: figmaScreenHeight * 0.45,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.shade200,
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                ),
+                child: Container(width: figmaScreenWidth, height: figmaScreenHeight * 0.45, decoration: BoxDecoration(color: AppColors.primary.shade200, borderRadius: BorderRadius.circular(24))),
               ),
 
               // Foreground content
@@ -58,30 +48,11 @@ class ProfileHero extends StatelessWidget {
                             CircleAvatar(
                               radius: 40,
                               backgroundColor: AppColors.primary.shade500,
-                              child: const Text(
-                                'R',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              child: const Text('R', style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
                             ),
                             const SizedBox(height: 12),
-                            const Text(
-                              'Rahul Pal',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            const Text(
-                              'Flutter Developer',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                            const Text('Rahul Pal', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                            const Text('Flutter Developer', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                           ],
                         ),
                       ),
@@ -102,26 +73,11 @@ class ProfileHero extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
-                                    'About Me',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+                                  const Text('About Me', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                                   const SizedBox(height: 8),
-                                  const Text(
-                                    'I build responsive Flutter web apps with thoughtful UX, strong state management, and real-time features. Currently working on Fhunger Partner for restaurant order management.',
-                                    style: TextStyle(fontSize: 14),
-                                  ),
+                                  const Text('I build responsive Flutter apps with thoughtful UX, strong state management, and real-time features.', style: TextStyle(fontSize: 14)),
                                   const SizedBox(height: 16),
-                                  const Text(
-                                    'Skills',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+                                  const Text('Skills', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                                   const SizedBox(height: 8),
                                   Wrap(
                                     spacing: 8,
@@ -141,8 +97,6 @@ class ProfileHero extends StatelessWidget {
                             ),
 
                             const SizedBox(height: 16),
-
-                           
                           ],
                         ),
                       ),
@@ -150,45 +104,6 @@ class ProfileHero extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 32),
-                   // Contact / socials
-                            BrutalismContainer(
-                              topBorderBold: false,
-                              bottomBorderBold: true,
-                              color: AppColors.accentYellow.shade100,
-                              borderRadius: 16,
-                              padding: const EdgeInsets.all(16),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: const [
-                                        Text(
-                                          'Contact',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        SizedBox(height: 6),
-                                        Text('Email: rahulpalofficial1998@gmail.com'),
-                                        Text('Location: India'),
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    children: const [
-                                      _IconBadge(icon: Icons.link, tooltip: 'LinkedIn'),
-                                      SizedBox(width: 8),
-                                      _IconBadge(icon: Icons.code, tooltip: 'GitHub'),
-                                      SizedBox(width: 8),
-                                      _IconBadge(icon: Icons.email, tooltip: 'Email'),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                              const SizedBox(height: 60),
 
                   // Experience / recent projects
                   BrutalismContainer(
@@ -200,21 +115,46 @@ class ProfileHero extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Recent Projects',
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
+                        const Text('Recent Projects', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                         const SizedBox(height: 12),
-                        _ProjectTile(
-                          title: 'Fhunger Partner',
-                          subtitle: 'Restaurant order management web app',
-                          tags: ['Flutter Web', 'Realtime', 'CI/CD'],
-                        ),
-                        const SizedBox(height: 8),
-                        _ProjectTile(
-                          title: 'Custom Question Form',
-                          subtitle: 'Dynamic form handling with follow-ups',
-                          tags: ['Dart', 'State Management'],
+                        _ProjectTile(title: 'Kymani', subtitle: 'A Traveller App for Tourists', tags: ['Flutter', 'Dart', 'Push Notifications', 'Deployment', 'Freezed', 'Hydrated Bloc']),
+                        const SizedBox(height: 18),
+                        _ProjectTile(title: 'Fhunger', subtitle: 'Food Delivery App for Restaurants', tags: ['Dart', 'Bloc', 'Firebase', 'Deployment', 'GetX', 'Freezed', 'Hydrated Bloc']),
+                      ],
+                    ),
+                  ),
+                   const SizedBox(height: 32),
+
+
+                  // Contact / socials
+                  BrutalismContainer(
+                    topBorderBold: false,
+                    bottomBorderBold: true,
+                    color: AppColors.accentYellow.shade100,
+                    borderRadius: 16,
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text('Contact', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                              SizedBox(height: 8),
+                              Text('Email: rahulpalofficial1998@gmail.com', style: TextStyle(fontWeight: FontWeight.bold)),
+                              Text('Location: India', style: TextStyle(fontWeight: FontWeight.bold)),
+                              SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  _IconBadge(icon: Icons.link, tooltip: 'LinkedIn'),
+                                  SizedBox(width: 8),
+                                  _IconBadge(icon: Icons.code, tooltip: 'GitHub'),
+                                  SizedBox(width: 8),
+                                  _IconBadge(icon: Icons.email, tooltip: 'Email'),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -238,15 +178,8 @@ class _SkillChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: AppColors.primary.shade100,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.textBase, width: 1.5),
-      ),
-      child: Text(
-        label,
-        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-      ),
+      decoration: BoxDecoration(color: AppColors.primary.shade100, borderRadius: BorderRadius.circular(8), border: Border.all(color: AppColors.textBase, width: 1.5)),
+      child: Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
     );
   }
 }
@@ -258,31 +191,19 @@ class _IconBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TappableEffect(
-      onTap: () {
-        if (icon == Icons.link) {
-          launchUrl(Uri.parse('https://www.linkedin.com/in/rahulpal0/'));
-        } else if (icon == Icons.code) {
-          launchUrl(Uri.parse('https://github.com/rpal730/'));
-        }else if(icon == Icons.email){
-          launchUrl(Uri.parse('mailto: rahulpalofficial1998@gmail.com'));
-        }
-      },
-      child: Tooltip(
-        message: tooltip,
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: AppColors.primary.shade300,
-            borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: AppColors.textBase, width: 2),
-          ),
-          child: Icon(
-            icon,
-            size: 16,
-            color: Colors.white,
-          ),
-        ),
+    return BrutalismContainer(
+      child: TappableEffect(
+        borderRadius: 0,
+        onTap: () {
+          if (icon == Icons.link) {
+            launchUrl(Uri.parse('https://www.linkedin.com/in/rahulpal0/'));
+          } else if (icon == Icons.code) {
+            launchUrl(Uri.parse('https://github.com/rpal730/'));
+          } else if (icon == Icons.email) {
+            launchUrl(Uri.parse('mailto: rahulpalofficial1998@gmail.com'));
+          }
+        },
+        child: Tooltip(message: tooltip, child: Icon(icon, size: 16, color: Colors.black)),
       ),
     );
   }
@@ -293,11 +214,7 @@ class _ProjectTile extends StatelessWidget {
   final String subtitle;
   final List<String> tags;
 
-  const _ProjectTile({
-    required this.title,
-    required this.subtitle,
-    required this.tags,
-  });
+  const _ProjectTile({required this.title, required this.subtitle, required this.tags});
 
   @override
   Widget build(BuildContext context) {
@@ -316,19 +233,17 @@ class _ProjectTile extends StatelessWidget {
           const SizedBox(height: 8),
           Wrap(
             spacing: 6,
-            children: tags
-                .map((t) => Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: AppColors.accentPeach.shade100,
-                        borderRadius: BorderRadius.circular(6),
+            runSpacing: 6,
+            children:
+                tags
+                    .map(
+                      (t) => Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(color: AppColors.accentPeach.shade100, borderRadius: BorderRadius.circular(6)),
+                        child: Text(t, style: const TextStyle(fontSize: 11)),
                       ),
-                      child: Text(
-                        t,
-                        style: const TextStyle(fontSize: 11),
-                      ),
-                    ))
-                .toList(),
+                    )
+                    .toList(),
           ),
         ],
       ),

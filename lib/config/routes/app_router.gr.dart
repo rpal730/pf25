@@ -48,25 +48,6 @@ class LoginRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [Screen2Screen]
-class Route2Route extends PageRouteInfo<void> {
-  const Route2Route({List<PageRouteInfo>? children})
-      : super(
-          Route2Route.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'Route2Route';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const Screen2Screen();
-    },
-  );
-}
-
-/// generated route for
 /// [Screen3Screen]
 class Route3Route extends PageRouteInfo<void> {
   const Route3Route({List<PageRouteInfo>? children})

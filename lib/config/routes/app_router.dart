@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_web_portfolio_2025/screens/auth/login/view/login_screen.dart';
 import 'package:flutter_web_portfolio_2025/screens/dashboard/view/dashboard.dart';
 import 'package:flutter_web_portfolio_2025/screens/screen1/screen1.dart';
-import 'package:flutter_web_portfolio_2025/screens/screen2/screen2.dart';
+import 'package:flutter_web_portfolio_2025/screens/screen2/view/screen2.dart';
 import 'package:flutter_web_portfolio_2025/screens/screen3/screen3.dart';
 import 'package:flutter_web_portfolio_2025/screens/screen4/screen4.dart';
 import 'package:flutter_web_portfolio_2025/screens/screen5/screen5.dart';
@@ -28,10 +28,7 @@ class AppRouter extends RootStackRouter {
             transitionsBuilder: TransitionsBuilders.noTransition,
             children: [
             
-              CustomRoute(
-                page: Route2Route.page,
-                transitionsBuilder: TransitionsBuilders.noTransition,
-              ),
+            
               CustomRoute(
                 page: Route3Route.page,
                 transitionsBuilder: TransitionsBuilders.noTransition,

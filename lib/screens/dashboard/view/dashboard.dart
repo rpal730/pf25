@@ -8,7 +8,8 @@ import 'package:flutter_web_portfolio_2025/res/ui_helper.dart';
 import 'package:flutter_web_portfolio_2025/screens/dashboard/cubit/dashboard_cubit.dart';
 import 'package:flutter_web_portfolio_2025/screens/dashboard/cubit/dashboard_state.dart';
 import 'package:flutter_web_portfolio_2025/screens/screen1/screen1.dart';
-import 'package:flutter_web_portfolio_2025/screens/screen2/screen2.dart';
+import 'package:flutter_web_portfolio_2025/screens/screen2/model/project.dart';
+import 'package:flutter_web_portfolio_2025/screens/screen2/view/screen2.dart';
 import 'package:flutter_web_portfolio_2025/screens/screen3/screen3.dart';
 import 'package:flutter_web_portfolio_2025/screens/screen4/screen4.dart';
 import 'package:flutter_web_portfolio_2025/screens/screen5/screen5.dart';
@@ -44,8 +45,9 @@ class DashboardScreen extends StatelessWidget {
           return Scaffold(
             // appBar: AppBar(
             //   title:  Text('Home',style: Theme.of(context).textTheme.titleLarge, ),
+
             // ),
-            body: IndexedStack(index: state.selectedIndex, children: const [ProfileHero(), Screen2Screen(), Screen3Screen(), Screen4Screen(), Screen5Screen()]),
+            body: IndexedStack(index: state.selectedIndex, children:  [ProfileHero(), ProjectDetailScreen(projects: allProjects,), Screen3Screen(), Screen4Screen(), Screen5Screen()]),
             appBar: CustomStatelessWidget(
               child: Container(
                 width: 300,
@@ -75,7 +77,7 @@ class DashboardScreen extends StatelessWidget {
                         onTap: () {
                           context.read<DashboardCubit>().selectIndex(1);
                         },
-                        label: AppStrings.settings,
+                        label: 'Projects',
                       ),
 
                       //CART WIDGET

@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class AppColors {
   AppColors._();
+
 
   // Core extracted palette
   static const Color _lavender = Color(0xffd3b5f3);
@@ -11,6 +14,17 @@ class AppColors {
   static const Color _darkText = Color(0xff282828);
   static const Color _lightGray = Color(0xffc8c8c8);
   static const Color _white = Color(0xffffffff);
+
+  static Color get random {
+  final colors = [
+    primary,
+    secondary,
+    accentPeach,
+    accentYellow,
+    background,
+  ];
+  return colors[Random().nextInt(colors.length)];
+}
 
   // Primary: Lavender
   static const MaterialColor primary = MaterialColor(
