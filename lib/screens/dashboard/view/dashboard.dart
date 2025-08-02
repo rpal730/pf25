@@ -88,7 +88,7 @@ class DashboardScreen extends StatelessWidget {
                         onTap: () {
                           context.read<DashboardCubit>().selectIndex(2);
                         },
-                        label: AppStrings.orders,
+                        label: 'Games',
                       ),
 
                       //HISTORY WIDGET
