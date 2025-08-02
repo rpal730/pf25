@@ -183,7 +183,7 @@ class _HangmanGameState extends State<HangmanGameScreen> {
                         });
                       },
                     ),
-                    ],
+                  ],
                 ),
                 const SizedBox(height: 16),
                 // Gallows and word
@@ -230,10 +230,8 @@ class _HangmanGameState extends State<HangmanGameScreen> {
                     padding: const EdgeInsets.only(top: 12),
                     child: Text(_status, style: TextStyle(fontWeight: FontWeight.w700, color: _status.startsWith('You win') ? Colors.green : Colors.red)),
                   ),
-                  SizedBox(height: 16,)
-,
-                      ElevatedButton(onPressed: _reset, style: ElevatedButton.styleFrom(backgroundColor: AppColors.accentPeach), child: const Text('Restart')),
-              
+                SizedBox(height: 16),
+                ElevatedButton(onPressed: _reset, style: ElevatedButton.styleFrom(backgroundColor: AppColors.accentPeach), child: const Text('Restart')),
               ],
             ),
           ),
