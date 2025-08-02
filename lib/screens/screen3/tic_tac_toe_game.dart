@@ -157,74 +157,76 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
       color: AppColors.backgroundBase,
       borderRadius: 14,
       padding: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Difficulty selector + status
-          Wrap(
-            children: [
-              const Text('Difficulty:', style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(width: 12),
-              _DifficultyRadio(
-                label: 'Easy',
-                value: Difficulty.easy,
-                group: difficulty,
-                onChanged: (v) {
-                  setState(() {
-                    difficulty = v!;
-                    reset();
-                  });
-                },
-              ),
-              const SizedBox(width: 8),
-              _DifficultyRadio(
-                label: 'Hard',
-                value: Difficulty.hard,
-                group: difficulty,
-                onChanged: (v) {
-                  setState(() {
-                    difficulty = v!;
-                    reset();
-                  });
-                },
-              ),
-              const Spacer(),
-            ],
-          ),
-          const SizedBox(height: 16),
-          // Grid
-          AspectRatio(
-            aspectRatio: 1,
-            child: Container(
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(border: Border.all(color: AppColors.textBase, width: 3), borderRadius: BorderRadius.circular(12)),
-              child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: 9,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisSpacing: 4, crossAxisSpacing: 4),
-                itemBuilder: (context, i) {
-                  final val = board[i];
-                  return GestureDetector(
-                    onTap: () => playerMove(i),
-                    child: Container(
-                      decoration: BoxDecoration(color: Colors.white, border: Border.all(color: AppColors.textBase, width: 2), borderRadius: BorderRadius.circular(8)),
-                      child: Center(child: Text(val ?? '', style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: val == player ? AppColors.primary.shade700 : AppColors.accentPeach))),
-                    ),
-                  );
-                },
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Difficulty selector + status
+            Wrap(
+              children: [
+                const Text('Difficulty:', style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(width: 12),
+                _DifficultyRadio(
+                  label: 'Easy',
+                  value: Difficulty.easy,
+                  group: difficulty,
+                  onChanged: (v) {
+                    setState(() {
+                      difficulty = v!;
+                      reset();
+                    });
+                  },
+                ),
+                const SizedBox(width: 8),
+                _DifficultyRadio(
+                  label: 'Hard',
+                  value: Difficulty.hard,
+                  group: difficulty,
+                  onChanged: (v) {
+                    setState(() {
+                      difficulty = v!;
+                      reset();
+                    });
+                  },
+                ),
+               
+              ],
+            ),
+            const SizedBox(height: 16),
+            // Grid
+            AspectRatio(
+              aspectRatio: 1,
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                decoration: BoxDecoration(border: Border.all(color: AppColors.textBase, width: 3), borderRadius: BorderRadius.circular(12)),
+                child: GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 9,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisSpacing: 4, crossAxisSpacing: 4),
+                  itemBuilder: (context, i) {
+                    final val = board[i];
+                    return GestureDetector(
+                      onTap: () => playerMove(i),
+                      child: Container(
+                        decoration: BoxDecoration(color: Colors.white, border: Border.all(color: AppColors.textBase, width: 2), borderRadius: BorderRadius.circular(8)),
+                        child: Center(child: Text(val ?? '', style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: val == player ? AppColors.primary.shade700 : AppColors.accentPeach))),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-
-          SizedBox(height: 12),
-          Text(status, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-          const SizedBox(width: 12),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.accentPeach, elevation: 0, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
-            onPressed: reset,
-            child: const Text('Restart'),
-          ),
-        ],
+        
+            SizedBox(height: 12),
+            Text(status, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+            const SizedBox(width: 12),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: AppColors.accentPeach, elevation: 0, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
+              onPressed: reset,
+              child: const Text('Restart'),
+            ),
+          ],
+        ),
       ),
     );
   }
