@@ -27,11 +27,7 @@ class AppRouter extends RootStackRouter {
             page: DashboardRoute.page,
             transitionsBuilder: TransitionsBuilders.noTransition,
             children: [
-              CustomRoute(
-                initial: true,
-                page: Route1Route.page,
-                transitionsBuilder: TransitionsBuilders.noTransition,
-              ),
+            
               CustomRoute(
                 page: Route2Route.page,
                 transitionsBuilder: TransitionsBuilders.noTransition,

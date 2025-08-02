@@ -45,7 +45,7 @@ class DashboardScreen extends StatelessWidget {
             // appBar: AppBar(
             //   title:  Text('Home',style: Theme.of(context).textTheme.titleLarge, ),
             // ),
-            body: IndexedStack(index: state.selectedIndex, children: const [Screen1Screen(), Screen2Screen(), Screen3Screen(), Screen4Screen(), Screen5Screen()]),
+            body: IndexedStack(index: state.selectedIndex, children: const [ProfileHero(), Screen2Screen(), Screen3Screen(), Screen4Screen(), Screen5Screen()]),
             appBar: CustomStatelessWidget(
               child: Container(
                 width: 300,
