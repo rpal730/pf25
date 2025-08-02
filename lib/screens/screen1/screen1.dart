@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_portfolio_2025/res/brutalism_container.dart';
+import 'package:flutter_web_portfolio_2025/res/tappable_effect.dart';
 import 'package:flutter_web_portfolio_2025/res/theme/app_colors.dart';
 import 'package:flutter_web_portfolio_2025/res/ui_helper.dart';
+import 'package:url_launcher/url_launcher.dart';
 class ProfileHero extends StatelessWidget {
   
   const ProfileHero({
@@ -169,7 +171,7 @@ class ProfileHero extends StatelessWidget {
                                           ),
                                         ),
                                         SizedBox(height: 6),
-                                        Text('Email: rahul@example.com'),
+                                        Text('Email: rahulpalofficial1998@gmail.com'),
                                         Text('Location: India'),
                                       ],
                                     ),
@@ -256,19 +258,30 @@ class _IconBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Tooltip(
-      message: tooltip,
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: AppColors.primary.shade300,
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: AppColors.textBase, width: 2),
-        ),
-        child: Icon(
-          icon,
-          size: 16,
-          color: Colors.white,
+    return TappableEffect(
+      onTap: () {
+        if (icon == Icons.link) {
+          launchUrl(Uri.parse('https://www.linkedin.com/in/rahulpal0/'));
+        } else if (icon == Icons.code) {
+          launchUrl(Uri.parse('https://github.com/rpal730/'));
+        }else if(icon == Icons.email){
+          launchUrl(Uri.parse('mailto: rahulpalofficial1998@gmail.com'));
+        }
+      },
+      child: Tooltip(
+        message: tooltip,
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: AppColors.primary.shade300,
+            borderRadius: BorderRadius.circular(6),
+            border: Border.all(color: AppColors.textBase, width: 2),
+          ),
+          child: Icon(
+            icon,
+            size: 16,
+            color: Colors.white,
+          ),
         ),
       ),
     );
