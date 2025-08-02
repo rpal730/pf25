@@ -6,12 +6,9 @@ part of 'app_state.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AppStateImpl _$$AppStateImplFromJson(Map<String, dynamic> json) =>
-    _$AppStateImpl(
-      token: json['token'] as String?,
-    );
+_AppState _$AppStateFromJson(Map<String, dynamic> json) =>
+    _AppState(token: json['token'] as String?);
 
-Map<String, dynamic> _$$AppStateImplToJson(_$AppStateImpl instance) =>
-    <String, dynamic>{
-      'token': instance.token,
-    };
+Map<String, dynamic> _$AppStateToJson(_AppState instance) => <String, dynamic>{
+  'token': instance.token,
+};

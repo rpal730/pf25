@@ -1,17 +1,21 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_portfolio_2025/res/brutalism_container.dart';
 import 'package:flutter_web_portfolio_2025/res/theme/app_colors.dart';
+import 'package:flutter_web_portfolio_2025/res/ui_helper.dart';
+import 'package:flutter_web_portfolio_2025/screens/dashboard/view/dashboard.dart';
 
 enum Difficulty { easy, hard }
 
-class TicTacToeGame extends StatefulWidget {
-  const TicTacToeGame({super.key});
+@RoutePage()
+class TicTacToeGameScreen extends StatefulWidget {
+  const TicTacToeGameScreen({super.key});
 
   @override
-  State<TicTacToeGame> createState() => _TicTacToeGameState();
+  State<TicTacToeGameScreen> createState() => _TicTacToeGameState();
 }
 
-class _TicTacToeGameState extends State<TicTacToeGame> {
+class _TicTacToeGameState extends State<TicTacToeGameScreen> {
   static const String player = 'X';
   static const String ai = 'O';
 
@@ -151,81 +155,95 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
 
   @override
   Widget build(BuildContext context) {
-    return BrutalismContainer(
-      topBorderBold: true,
-      bottomBorderBold: true,
-      color: AppColors.backgroundBase,
-      borderRadius: 14,
-      padding: const EdgeInsets.all(16),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Difficulty selector + status
-            Wrap(
-              children: [
-                const Text('Difficulty:', style: TextStyle(fontWeight: FontWeight.bold)),
-                const SizedBox(width: 12),
-                _DifficultyRadio(
-                  label: 'Easy',
-                  value: Difficulty.easy,
-                  group: difficulty,
-                  onChanged: (v) {
-                    setState(() {
-                      difficulty = v!;
-                      reset();
-                    });
-                  },
-                ),
-                const SizedBox(width: 8),
-                _DifficultyRadio(
-                  label: 'Hard',
-                  value: Difficulty.hard,
-                  group: difficulty,
-                  onChanged: (v) {
-                    setState(() {
-                      difficulty = v!;
-                      reset();
-                    });
-                  },
-                ),
-               
-              ],
-            ),
-            const SizedBox(height: 16),
-            // Grid
-            AspectRatio(
-              aspectRatio: 1,
-              child: Container(
-                padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(border: Border.all(color: AppColors.textBase, width: 3), borderRadius: BorderRadius.circular(12)),
-                child: GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 9,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisSpacing: 4, crossAxisSpacing: 4),
-                  itemBuilder: (context, i) {
-                    final val = board[i];
-                    return GestureDetector(
-                      onTap: () => playerMove(i),
-                      child: Container(
-                        decoration: BoxDecoration(color: Colors.white, border: Border.all(color: AppColors.textBase, width: 2), borderRadius: BorderRadius.circular(8)),
-                        child: Center(child: Text(val ?? '', style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: val == player ? AppColors.primary.shade700 : AppColors.accentPeach))),
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        toolbarHeight: 80,
+        centerTitle: true,
+        title: InkWell(onTap: () => context.router.pop(), child: BrutalismContainer(child: Icon(Icons.arrow_back_ios, color: Colors.black, size: 16))),
+      ),
+      body: Center(
+        child: SizedBox(
+          width: figmaScreenWidth,
+          child: BrutalismContainer(
+            topBorderBold: true,
+            bottomBorderBold: true,
+            color: AppColors.backgroundBase,
+            borderRadius: 14,
+            padding: const EdgeInsets.all(16),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Difficulty selector + status
+                  Wrap(
+                    children: [
+                      const Text('Difficulty:', style: TextStyle(fontWeight: FontWeight.bold)),
+                      const SizedBox(width: 12),
+                      _DifficultyRadio(
+                        label: 'Easy',
+                        value: Difficulty.easy,
+                        group: difficulty,
+                        onChanged: (v) {
+                          setState(() {
+                            difficulty = v!;
+                            reset();
+                          });
+                        },
                       ),
-                    );
-                  },
-                ),
+                      const SizedBox(width: 8),
+                      _DifficultyRadio(
+                        label: 'Hard',
+                        value: Difficulty.hard,
+                        group: difficulty,
+                        onChanged: (v) {
+                          setState(() {
+                            difficulty = v!;
+                            reset();
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  // Grid
+                  AspectRatio(
+                    aspectRatio: 1,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(border: Border.all(color: AppColors.textBase, width: 3), borderRadius: BorderRadius.circular(12)),
+                      child: GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 9,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisSpacing: 4, crossAxisSpacing: 4),
+                        itemBuilder: (context, i) {
+                          final val = board[i];
+                          return GestureDetector(
+                            onTap: () => playerMove(i),
+                            child: Container(
+                              decoration: BoxDecoration(color: Colors.white, border: Border.all(color: AppColors.textBase, width: 2), borderRadius: BorderRadius.circular(8)),
+                              child: Center(
+                                child: Text(val ?? '', style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: val == player ? AppColors.primary.shade700 : AppColors.accentPeach)),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: 12),
+                  Text(status, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+                  const SizedBox(width: 12),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: AppColors.accentPeach, elevation: 0, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
+                    onPressed: reset,
+                    child: const Text('Restart'),
+                  ),
+                ],
               ),
             ),
-        
-            SizedBox(height: 12),
-            Text(status, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-            const SizedBox(width: 12),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: AppColors.accentPeach, elevation: 0, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
-              onPressed: reset,
-              child: const Text('Restart'),
-            ),
-          ],
+          ),
         ),
       ),
     );

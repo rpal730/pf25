@@ -7,7 +7,7 @@ part 'dashboard_state.g.dart';
 
 
 @freezed
-class DashboardState with _$DashboardState {
+abstract class DashboardState with _$DashboardState {
   const DashboardState._();
 
   const factory DashboardState({

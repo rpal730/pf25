@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -13,10 +14,7 @@ part of 'app_router.dart';
 /// [DashboardScreen]
 class DashboardRoute extends PageRouteInfo<void> {
   const DashboardRoute({List<PageRouteInfo>? children})
-      : super(
-          DashboardRoute.name,
-          initialChildren: children,
-        );
+    : super(DashboardRoute.name, initialChildren: children);
 
   static const String name = 'DashboardRoute';
 
@@ -29,13 +27,26 @@ class DashboardRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [HangmanGameScreen]
+class HangmanGameRoute extends PageRouteInfo<void> {
+  const HangmanGameRoute({List<PageRouteInfo>? children})
+    : super(HangmanGameRoute.name, initialChildren: children);
+
+  static const String name = 'HangmanGameRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const HangmanGameScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [LoginScreen]
 class LoginRoute extends PageRouteInfo<void> {
   const LoginRoute({List<PageRouteInfo>? children})
-      : super(
-          LoginRoute.name,
-          initialChildren: children,
-        );
+    : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
@@ -51,10 +62,7 @@ class LoginRoute extends PageRouteInfo<void> {
 /// [Screen3Screen]
 class Route3Route extends PageRouteInfo<void> {
   const Route3Route({List<PageRouteInfo>? children})
-      : super(
-          Route3Route.name,
-          initialChildren: children,
-        );
+    : super(Route3Route.name, initialChildren: children);
 
   static const String name = 'Route3Route';
 
@@ -70,10 +78,7 @@ class Route3Route extends PageRouteInfo<void> {
 /// [Screen4Screen]
 class Route4Route extends PageRouteInfo<void> {
   const Route4Route({List<PageRouteInfo>? children})
-      : super(
-          Route4Route.name,
-          initialChildren: children,
-        );
+    : super(Route4Route.name, initialChildren: children);
 
   static const String name = 'Route4Route';
 
@@ -89,10 +94,7 @@ class Route4Route extends PageRouteInfo<void> {
 /// [Screen5Screen]
 class Route5Route extends PageRouteInfo<void> {
   const Route5Route({List<PageRouteInfo>? children})
-      : super(
-          Route5Route.name,
-          initialChildren: children,
-        );
+    : super(Route5Route.name, initialChildren: children);
 
   static const String name = 'Route5Route';
 
@@ -108,10 +110,7 @@ class Route5Route extends PageRouteInfo<void> {
 /// [SplashScreen]
 class SplashRoute extends PageRouteInfo<void> {
   const SplashRoute({List<PageRouteInfo>? children})
-      : super(
-          SplashRoute.name,
-          initialChildren: children,
-        );
+    : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
@@ -119,6 +118,22 @@ class SplashRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SplashScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [TicTacToeGameScreen]
+class TicTacToeGameRoute extends PageRouteInfo<void> {
+  const TicTacToeGameRoute({List<PageRouteInfo>? children})
+    : super(TicTacToeGameRoute.name, initialChildren: children);
+
+  static const String name = 'TicTacToeGameRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TicTacToeGameScreen();
     },
   );
 }

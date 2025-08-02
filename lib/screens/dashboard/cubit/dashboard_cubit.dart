@@ -2,7 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter_web_portfolio_2025/res/base_hydrated_cubit.dart';
 import 'package:flutter_web_portfolio_2025/screens/dashboard/cubit/dashboard_state.dart';
+import 'package:injectable/injectable.dart';
 
+
+@injectable
 class DashboardCubit extends BaseHydratedCubit<DashboardState> {
   DashboardCubit() : super(const DashboardState());
 
