@@ -23,6 +23,11 @@ class Screen3Screen extends StatelessWidget {
             InkWell(onTap: () => context.router.push(TicTacToeGameRoute()), child: BrutalismContainer(child: Text('Tic Tac Toe', style: TextStyle(color: AppColors.text, fontSize: 20)))),
             SizedBox(height: 16),
             InkWell(onTap: () => context.router.push(HangmanGameRoute()), child: BrutalismContainer(child: Text('Hangman', style: TextStyle(color: AppColors.text, fontSize: 20)))),
+           SizedBox(height: 16),
+            InkWell(onTap: () => context.router.push(WordleGameRoute()), child: BrutalismContainer(child: Text('Wordle', style: TextStyle(color: AppColors.text, fontSize: 20)))),
+          
+          
+          
           ],
         ),
       ),

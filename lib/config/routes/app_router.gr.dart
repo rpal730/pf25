@@ -137,3 +137,19 @@ class TicTacToeGameRoute extends PageRouteInfo<void> {
     },
   );
 }
+
+/// generated route for
+/// [WordleGameScreen]
+class WordleGameRoute extends PageRouteInfo<void> {
+  const WordleGameRoute({List<PageRouteInfo>? children})
+    : super(WordleGameRoute.name, initialChildren: children);
+
+  static const String name = 'WordleGameRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const WordleGameScreen();
+    },
+  );
+}
