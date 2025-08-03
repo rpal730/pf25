@@ -5,6 +5,7 @@ import 'package:flutter_web_portfolio_2025/config/routes/app_router.dart';
 import 'package:flutter_web_portfolio_2025/res/brutalism_container.dart';
 import 'package:flutter_web_portfolio_2025/res/theme/app_colors.dart';
 import 'package:flutter_web_portfolio_2025/res/ui_helper.dart';
+import 'package:flutter_web_portfolio_2025/screens/screen3/tetris_game.dart';
 import 'package:flutter_web_portfolio_2025/screens/screen3/tic_tac_toe_game.dart';
 
 @RoutePage()
@@ -25,6 +26,8 @@ class Screen3Screen extends StatelessWidget {
             InkWell(onTap: () => context.router.push(HangmanGameRoute()), child: BrutalismContainer(child: Text('Hangman', style: TextStyle(color: AppColors.text, fontSize: 20)))),
            SizedBox(height: 16),
             InkWell(onTap: () => context.router.push(WordleGameRoute()), child: BrutalismContainer(child: Text('Wordle', style: TextStyle(color: AppColors.text, fontSize: 20)))),
+           SizedBox(height: 16),
+            InkWell(onTap: () => context.router.push(TetrisGameRoute()), child: BrutalismContainer(child: Text('Tetris', style: TextStyle(color: AppColors.text, fontSize: 20)))),
           
           
           

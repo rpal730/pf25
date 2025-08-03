@@ -5,6 +5,7 @@ import 'package:flutter_web_portfolio_2025/screens/screen1/screen1.dart';
 import 'package:flutter_web_portfolio_2025/screens/screen2/view/screen2.dart';
 import 'package:flutter_web_portfolio_2025/screens/screen3/hangman_game.dart';
 import 'package:flutter_web_portfolio_2025/screens/screen3/screen3.dart';
+import 'package:flutter_web_portfolio_2025/screens/screen3/tetris_game.dart';
 import 'package:flutter_web_portfolio_2025/screens/screen3/tic_tac_toe_game.dart';
 import 'package:flutter_web_portfolio_2025/screens/screen3/wordle_game.dart';
 import 'package:flutter_web_portfolio_2025/screens/screen4/screen4.dart';
@@ -21,6 +22,7 @@ class AppRouter extends RootStackRouter {
     CustomRoute(page: SplashRoute.page, initial: true, transitionsBuilder: TransitionsBuilders.noTransition),
     CustomRoute(page: TicTacToeGameRoute.page, transitionsBuilder: TransitionsBuilders.noTransition),
     CustomRoute(page: HangmanGameRoute.page, transitionsBuilder: TransitionsBuilders.noTransition),
+    CustomRoute(page: TetrisGameRoute.page, transitionsBuilder: TransitionsBuilders.noTransition),
     CustomRoute(page: WordleGameRoute.page, transitionsBuilder: TransitionsBuilders.noTransition),
     CustomRoute(
       page: DashboardRoute.page,

@@ -123,6 +123,22 @@ class SplashRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [TetrisGameScreen]
+class TetrisGameRoute extends PageRouteInfo<void> {
+  const TetrisGameRoute({List<PageRouteInfo>? children})
+    : super(TetrisGameRoute.name, initialChildren: children);
+
+  static const String name = 'TetrisGameRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TetrisGameScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [TicTacToeGameScreen]
 class TicTacToeGameRoute extends PageRouteInfo<void> {
   const TicTacToeGameRoute({List<PageRouteInfo>? children})

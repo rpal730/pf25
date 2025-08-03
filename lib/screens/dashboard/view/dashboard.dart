@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_web_portfolio_2025/config/routes/app_router.dart';
 import 'package:flutter_web_portfolio_2025/res/app_strings.dart';
 import 'package:flutter_web_portfolio_2025/res/custom_navbar_widget.dart';
+import 'package:flutter_web_portfolio_2025/res/theme/app_colors.dart';
 import 'package:flutter_web_portfolio_2025/res/ui_helper.dart';
 import 'package:flutter_web_portfolio_2025/screens/dashboard/cubit/dashboard_cubit.dart';
 import 'package:flutter_web_portfolio_2025/screens/dashboard/cubit/dashboard_state.dart';
@@ -43,6 +44,7 @@ class DashboardScreen extends StatelessWidget {
           //   default:
           // }
           return Scaffold(
+            backgroundColor: AppColors.primary ,
             // appBar: AppBar(
             //   title:  Text('Home',style: Theme.of(context).textTheme.titleLarge, ),
 

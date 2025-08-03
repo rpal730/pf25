@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_web_portfolio_2025/config/routes/app_router.dart';
+import 'package:flutter_web_portfolio_2025/res/ui_helper.dart';
 import 'package:flutter_web_portfolio_2025/screens/splash/cubit/splash_cubit.dart';
 import 'package:flutter_web_portfolio_2025/screens/splash/cubit/splash_enum.dart';
 
@@ -20,20 +21,23 @@ class SplashScreen extends StatelessWidget {
       child: Scaffold(
         body: BlocListener<SplashCubit, SplashEnum>(
           listener: (context, state) {
-           switch (state) {
-             case SplashEnum.authenticated:
-             context.router.replace(const DashboardRoute());
+          //  switch (state) {
+            context.router.replace(const DashboardRoute());
+            //  case SplashEnum.authenticated:
+            //  context.router.replace(const DashboardRoute());
                
-               break; 
-               case SplashEnum.unauthenticated:
-             context.router.replace(const LoginRoute());
+            //    break; 
+            //    case SplashEnum.unauthenticated:
+            //  context.router.replace(const LoginRoute());
                
-               break;
-             default:
-           }
+              //  break;
+            //  default:
+          //  }
           },
-          child: const Center(
-            child: Text("Splash Screen"),
+          child:  Center(
+            child: SizedBox(
+              width: figmaScreenWidth,
+              child: Image.asset("assets/download.jpeg")),
           ),
         ),
       ),

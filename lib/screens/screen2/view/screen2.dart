@@ -17,12 +17,12 @@ class ProjectDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundBase,
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        elevation: 0,
-        title: const Text('Projects & Work'),
-      ),
+      backgroundColor: AppColors.primary,
+      // appBar: AppBar(
+      //   backgroundColor: AppColors.primary,
+      //   elevation: 0,
+      //   title: const Text('Projects & Work'),
+      // ),
       body: Center(
         child: SizedBox(
         
