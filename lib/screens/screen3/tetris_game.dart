@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_web_portfolio_2025/res/brutalism_container.dart';
 import 'package:flutter_web_portfolio_2025/res/theme/app_colors.dart';
 
-const int rows = 20;
-const int cols = 10;
+const int rows = 50;
+const int cols = 20;
 const Duration tickDurationInitial = Duration(milliseconds: 500);
 
 typedef Matrix = List<List<int>>;
