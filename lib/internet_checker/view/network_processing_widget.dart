@@ -47,30 +47,32 @@ class NoInternetConnectionDisclaimer extends StatelessWidget {
           snackbarManager.dismissSnackbar('no_internet_connection');
           snackbarManager.dismissSnackbar('internet_connection_online');
 
-         
-
           if (state) {
-            WidgetsBinding.instance.addPostFrameCallback((_) => snackbarManager.showSnackbar(
-              context,
-              _buildSnackBar(
-                content: 'You are back online!',
-                backgroundColor: Colors.green,
+            WidgetsBinding.instance.addPostFrameCallback(
+              (_) => snackbarManager.showSnackbar(
+                context,
+                _buildSnackBar(
+                  content: 'You are back online!',
+                  backgroundColor: Colors.green,
+                ),
+                id: 'internet_connection_online',
               ),
-              id: 'internet_connection_online',
-            ));
+            );
             return;
-          }else {
+          } else {
             // If there's no internet connection
-          WidgetsBinding.instance.addPostFrameCallback((_) => snackbarManager.showSnackbar(
-            context,
-            _buildSnackBar(
-              content: 'We are looking for active internet connection.',
-              backgroundColor: Colors.deepOrangeAccent,
-              showProgress: true,
-              duration: const Duration(seconds: 9999),
-            ),
-            id: 'no_internet_connection',
-          ));
+            WidgetsBinding.instance.addPostFrameCallback(
+              (_) => snackbarManager.showSnackbar(
+                context,
+                _buildSnackBar(
+                  content: 'We are looking for active internet connection.',
+                  backgroundColor: Colors.deepOrangeAccent,
+                  showProgress: true,
+                  duration: const Duration(seconds: 9999),
+                ),
+                id: 'no_internet_connection',
+              ),
+            );
           }
         },
         child: const SizedBox(),

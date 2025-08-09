@@ -44,18 +44,42 @@ class DashboardScreen extends StatelessWidget {
           //   default:
           // }
           return Scaffold(
-            backgroundColor: AppColors.primary ,
+            backgroundColor: AppColors.primary,
             // appBar: AppBar(
             //   title:  Text('Home',style: Theme.of(context).textTheme.titleLarge, ),
 
             // ),
-            body: IndexedStack(index: state.selectedIndex, children:  [ProfileHero(), ProjectDetailScreen(projects: allProjects,), Screen3Screen(), Screen4Screen(), Screen5Screen()]),
+            body: IndexedStack(
+              index: state.selectedIndex,
+              children: [
+                ProfileHero(),
+                ProjectDetailScreen(projects: allProjects),
+                Screen3Screen(),
+                Screen4Screen(),
+                Screen5Screen(),
+              ],
+            ),
             appBar: CustomStatelessWidget(
               child: Container(
                 width: 300,
-                decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.5), spreadRadius: 1, blurRadius: 5, offset: const Offset(0, 2))]),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
                 child: Padding(
-                  padding: EdgeInsets.only(left: 20.0, right: 20, bottom: 10, top: 10),
+                  padding: EdgeInsets.only(
+                    left: 20.0,
+                    right: 20,
+                    bottom: 10,
+                    top: 10,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
@@ -126,7 +150,8 @@ class DashboardScreen extends StatelessWidget {
   }
 }
 
-class CustomStatelessWidget extends StatelessWidget implements PreferredSizeWidget {
+class CustomStatelessWidget extends StatelessWidget
+    implements PreferredSizeWidget {
   final Widget child;
   const CustomStatelessWidget({super.key, required this.child});
 
@@ -138,5 +163,3 @@ class CustomStatelessWidget extends StatelessWidget implements PreferredSizeWidg
   @override
   Size get preferredSize => Size(200, kToolbarHeight + 30);
 }
-
-

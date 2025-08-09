@@ -1,6 +1,3 @@
-
-
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_portfolio_2025/app/cubit/app_cubit.dart';
@@ -14,24 +11,24 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        CustomTextField(),
-        const Text('Login Screen'),
-        ElevatedButton(onPressed: (){
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CustomTextField(),
+          const Text('Login Screen'),
+          ElevatedButton(
+            onPressed: () {
+              getIt<AppCubit>().setToken('token');
 
-          getIt<AppCubit>().setToken('token');
-
-          if(getIt<AppCubit>().state.token!=null){
-            context.router.replace(const DashboardRoute());
-            
-          }
-        }, child: const Text('Login'),),
-
-      ],
+              if (getIt<AppCubit>().state.token != null) {
+                context.router.replace(const DashboardRoute());
+              }
+            },
+            child: const Text('Login'),
+          ),
+        ],
       ),
     );
   }

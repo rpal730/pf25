@@ -15,6 +15,7 @@ import 'package:injectable/injectable.dart' as _i526;
 import '../app/cubit/app_cubit.dart' as _i356;
 import '../internet_checker/cubit/network_checker.dart' as _i125;
 import '../network/app_repository.dart' as _i820;
+import '../network/firestore_service.dart' as _i977;
 import '../res/base_snackbar_manager.dart' as _i425;
 import '../screens/dashboard/cubit/dashboard_cubit.dart' as _i518;
 
@@ -25,6 +26,7 @@ _i174.GetIt $initGetIt(
   _i526.EnvironmentFilter? environmentFilter,
 }) {
   final gh = _i526.GetItHelper(getIt, environment, environmentFilter);
+  gh.factory<_i977.FirestoreService>(() => _i977.FirestoreService());
   gh.factory<_i518.DashboardCubit>(() => _i518.DashboardCubit());
   gh.lazySingleton<_i425.SnackbarManager>(() => _i425.SnackbarManager());
   gh.lazySingleton<_i356.AppCubit>(() => _i356.AppCubit());

@@ -6,9 +6,15 @@ part of 'app_state.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_AppState _$AppStateFromJson(Map<String, dynamic> json) =>
-    _AppState(token: json['token'] as String?);
+_AppState _$AppStateFromJson(Map<String, dynamic> json) => _AppState(
+  token: json['token'] as String?,
+  userData:
+      json['userData'] == null
+          ? null
+          : UserModel.fromJson(json['userData'] as Map<String, dynamic>),
+);
 
 Map<String, dynamic> _$AppStateToJson(_AppState instance) => <String, dynamic>{
   'token': instance.token,
+  'userData': instance.userData,
 };

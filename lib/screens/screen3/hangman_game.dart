@@ -16,8 +16,26 @@ class HangmanGameScreen extends StatefulWidget {
 
 class _HangmanGameState extends State<HangmanGameScreen> {
   static final Map<HangmanDifficulty, List<String>> _wordPools = {
-    HangmanDifficulty.easy: ['FLUTTER', 'DART', 'CODE', 'WIDGET', 'STATE', 'HOME', 'GRID', 'STACK'],
-    HangmanDifficulty.hard: ['ASYNC', 'COMPOSITE', 'REFACTOR', 'OPTIMIZATION', 'INHERITANCE', 'DELEGATION', 'DEPENDENCY', 'ARCHITECTURE'],
+    HangmanDifficulty.easy: [
+      'FLUTTER',
+      'DART',
+      'CODE',
+      'WIDGET',
+      'STATE',
+      'HOME',
+      'GRID',
+      'STACK',
+    ],
+    HangmanDifficulty.hard: [
+      'ASYNC',
+      'COMPOSITE',
+      'REFACTOR',
+      'OPTIMIZATION',
+      'INHERITANCE',
+      'DELEGATION',
+      'DEPENDENCY',
+      'ARCHITECTURE',
+    ],
   };
 
   late String _targetWord;
@@ -73,7 +91,10 @@ class _HangmanGameState extends State<HangmanGameScreen> {
   }
 
   String _displayWord() {
-    return _targetWord.split('').map((c) => _guessed.contains(c) ? c : '_').join(' ');
+    return _targetWord
+        .split('')
+        .map((c) => _guessed.contains(c) ? c : '_')
+        .join(' ');
   }
 
   Widget _buildGallows() {
@@ -129,7 +150,10 @@ class _HangmanGameState extends State<HangmanGameScreen> {
  / \\  |
 =======''',
     ];
-    return Text(parts[_wrong.clamp(0, maxWrong)], style: const TextStyle(fontFamily: 'Courier', height: 1.1));
+    return Text(
+      parts[_wrong.clamp(0, maxWrong)],
+      style: const TextStyle(fontFamily: 'Courier', height: 1.1),
+    );
   }
 
   @override
@@ -139,7 +163,12 @@ class _HangmanGameState extends State<HangmanGameScreen> {
         automaticallyImplyLeading: false,
         toolbarHeight: 80,
         centerTitle: true,
-        title: InkWell(onTap: () => context.router.pop(), child: BrutalismContainer(child: Icon(Icons.arrow_back_ios, color: Colors.black, size: 16))),
+        title: InkWell(
+          onTap: () => context.router.pop(),
+          child: BrutalismContainer(
+            child: Icon(Icons.arrow_back_ios, color: Colors.black, size: 16),
+          ),
+        ),
       ),
       body: Center(
         child: SizedBox(
@@ -160,7 +189,11 @@ class _HangmanGameState extends State<HangmanGameScreen> {
                   alignment: WrapAlignment.center,
                   runAlignment: WrapAlignment.center,
                   children: [
-                    const Text('Difficulty:', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text(
+                      'Difficulty:',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(width: 12),
                     _DifficultyChip(
                       label: 'Easy',
@@ -197,7 +230,18 @@ class _HangmanGameState extends State<HangmanGameScreen> {
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [Text(_displayWord(), style: const TextStyle(fontSize: 32, letterSpacing: 2, fontWeight: FontWeight.bold)), const SizedBox(height: 8), Text(_status)],
+                        children: [
+                          Text(
+                            _displayWord(),
+                            style: const TextStyle(
+                              fontSize: 32,
+                              letterSpacing: 2,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(_status),
+                        ],
                       ),
                     ),
                   ],
@@ -214,13 +258,32 @@ class _HangmanGameState extends State<HangmanGameScreen> {
                           width: 36,
                           height: 36,
                           child: ElevatedButton(
-                            onPressed: used || _finished ? null : () => _guess(l),
+                            onPressed:
+                                used || _finished ? null : () => _guess(l),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: used ? AppColors.neutralLight : AppColors.primary.shade100,
+                              backgroundColor:
+                                  used
+                                      ? AppColors.neutralLight
+                                      : AppColors.primary.shade100,
                               padding: EdgeInsets.zero,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6), side: BorderSide(color: AppColors.textBase, width: 1)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6),
+                                side: BorderSide(
+                                  color: AppColors.textBase,
+                                  width: 1,
+                                ),
+                              ),
                             ),
-                            child: Text(l, style: TextStyle(color: used ? Colors.grey[600] : AppColors.textBase, fontWeight: FontWeight.bold)),
+                            child: Text(
+                              l,
+                              style: TextStyle(
+                                color:
+                                    used
+                                        ? Colors.grey[600]
+                                        : AppColors.textBase,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         );
                       }).toList(),
@@ -228,10 +291,25 @@ class _HangmanGameState extends State<HangmanGameScreen> {
                 if (_finished)
                   Padding(
                     padding: const EdgeInsets.only(top: 12),
-                    child: Text(_status, style: TextStyle(fontWeight: FontWeight.w700, color: _status.startsWith('You win') ? Colors.green : Colors.red)),
+                    child: Text(
+                      _status,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color:
+                            _status.startsWith('You win')
+                                ? Colors.green
+                                : Colors.red,
+                      ),
+                    ),
                   ),
                 SizedBox(height: 16),
-                ElevatedButton(onPressed: _reset, style: ElevatedButton.styleFrom(backgroundColor: AppColors.accentPeach), child: const Text('Restart')),
+                ElevatedButton(
+                  onPressed: _reset,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.accentPeach,
+                  ),
+                  child: const Text('Restart'),
+                ),
               ],
             ),
           ),
@@ -246,7 +324,11 @@ class _DifficultyChip extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
 
-  const _DifficultyChip({required this.label, required this.selected, required this.onTap});
+  const _DifficultyChip({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -255,11 +337,21 @@ class _DifficultyChip extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: selected ? AppColors.primary.shade200 : AppColors.backgroundBase,
+          color:
+              selected ? AppColors.primary.shade200 : AppColors.backgroundBase,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: AppColors.textBase, width: 1.5),
         ),
-        child: Text(label, style: TextStyle(fontWeight: FontWeight.bold, color: selected ? AppColors.textBase : AppColors.textBase.withOpacity(0.75))),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color:
+                selected
+                    ? AppColors.textBase
+                    : AppColors.textBase.withOpacity(0.75),
+          ),
+        ),
       ),
     );
   }

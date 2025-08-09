@@ -40,9 +40,7 @@ final textButtonStyle = TextButton.styleFrom(
 
 const dividerTheme = DividerThemeData(space: 0, thickness: 1);
 
-const appBarTheme = AppBarTheme(
-  elevation: 0,
-);
+const appBarTheme = AppBarTheme(elevation: 0);
 
 const snackBarTheme = SnackBarThemeData(
   elevation: 0,
@@ -59,8 +57,6 @@ const inputDecorationTheme = InputDecorationTheme(
   ),
   enabledBorder: OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(8)),
-    borderSide: BorderSide(
-      color: Colors.transparent,
-    ),
+    borderSide: BorderSide(color: Colors.transparent),
   ),
 );

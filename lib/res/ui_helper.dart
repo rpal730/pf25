@@ -8,8 +8,9 @@ const double figmaScreenHeight = 926.0;
 const Widget horizontalSpaceTiny = SizedBox(width: AppDimentions.px5);
 const Widget horizontalSpaceSmall = SizedBox(width: AppDimentions.px10);
 const Widget horizontalSpaceMediumSmall = SizedBox(width: AppDimentions.px15);
-const Widget horizontalSpaceMediumQuarter =
-    SizedBox(height: AppDimentions.px20);
+const Widget horizontalSpaceMediumQuarter = SizedBox(
+  height: AppDimentions.px20,
+);
 const Widget horizontalSpaceMedium = SizedBox(width: AppDimentions.px25);
 const Widget horizontalSpaceExtraLarge = SizedBox(width: AppDimentions.px120);
 const Widget horizontalSpaceMediumLarge = SizedBox(width: AppDimentions.px40);
@@ -22,17 +23,11 @@ const Widget verticalSpaceMediumQuarter = SizedBox(height: AppDimentions.px20);
 const Widget verticalSpaceMedium = SizedBox(height: AppDimentions.px25);
 const Widget verticalSpaceLarge = SizedBox(height: AppDimentions.px50);
 const Widget verticalSpaceMassive = SizedBox(height: AppDimentions.px120);
-Widget divider = Container(
-  height: 1,
-  color: Colors.grey.shade200,
-);
+Widget divider = Container(height: 1, color: Colors.grey.shade200);
 Widget indentSpacedDivider = const Column(
   children: <Widget>[
     verticalSpaceMediumSmall,
-    Divider(
-      indent: 16.0,
-      endIndent: 16.0,
-    ),
+    Divider(indent: 16.0, endIndent: 16.0),
     verticalSpaceMediumSmall,
   ],
 );
@@ -47,13 +42,17 @@ double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
 
 double screenHeight(BuildContext context) => MediaQuery.of(context).size.height;
 
-double screenHeightFraction(BuildContext context,
-        {int dividedBy = 1, double offsetBy = 0}) =>
-    (screenHeight(context) - offsetBy) / dividedBy;
+double screenHeightFraction(
+  BuildContext context, {
+  int dividedBy = 1,
+  double offsetBy = 0,
+}) => (screenHeight(context) - offsetBy) / dividedBy;
 
-double screenWidthFraction(BuildContext context,
-        {int dividedBy = 1, double offsetBy = 0}) =>
-    (screenWidth(context) - offsetBy) / dividedBy;
+double screenWidthFraction(
+  BuildContext context, {
+  int dividedBy = 1,
+  double offsetBy = 0,
+}) => (screenWidth(context) - offsetBy) / dividedBy;
 
 double halfScreenWidth(BuildContext context) =>
     screenWidthFraction(context, dividedBy: 2);
@@ -61,27 +60,29 @@ double halfScreenWidth(BuildContext context) =>
 double thirdScreenWidth(BuildContext context) =>
     screenWidthFraction(context, dividedBy: 3);
 
-double widthAccToFigma(
-        {required double width, required BuildContext context}) =>
-    (width / figmaScreenWidth) * screenWidth(context);
+double widthAccToFigma({
+  required double width,
+  required BuildContext context,
+}) => (width / figmaScreenWidth) * screenWidth(context);
 
-double heightAccToFigma(
-        {required double height, required BuildContext context}) =>
-    (height / figmaScreenHeight) * screenHeight(context);
+double heightAccToFigma({
+  required double height,
+  required BuildContext context,
+}) => (height / figmaScreenHeight) * screenHeight(context);
 
 class CustomSvgAssetImage extends StatelessWidget {
   final String assetName;
   final double? width;
   final double? height;
-  const CustomSvgAssetImage(
-      {super.key, required this.assetName, this.width, this.height});
+  const CustomSvgAssetImage({
+    super.key,
+    required this.assetName,
+    this.width,
+    this.height,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(
-      assetName,
-      width: width,
-      height: height,
-    );
+    return SvgPicture.asset(assetName, width: width, height: height);
   }
 }

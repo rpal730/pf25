@@ -1,6 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_portfolio_2025/app/cubit/app_cubit.dart';
+import 'package:flutter_web_portfolio_2025/config/app_injection.dart';
 import 'package:flutter_web_portfolio_2025/config/routes/app_router.dart';
 import 'package:flutter_web_portfolio_2025/res/brutalism_container.dart';
 import 'package:flutter_web_portfolio_2025/res/theme/app_colors.dart';
@@ -21,16 +23,65 @@ class Screen3Screen extends StatelessWidget {
         height: figmaScreenHeight,
         child: Column(
           children: [
-            InkWell(onTap: () => context.router.push(TicTacToeGameRoute()), child: BrutalismContainer(child: Text('Tic Tac Toe', style: TextStyle(color: AppColors.text, fontSize: 20)))),
+            InkWell(
+              onTap: () => context.router.push(TicTacToeGameRoute()),
+              child: BrutalismContainer(
+                child: Text(
+                  'Tic Tac Toe',
+                  style: TextStyle(color: AppColors.text, fontSize: 20),
+                ),
+              ),
+            ),
             SizedBox(height: 16),
-            InkWell(onTap: () => context.router.push(HangmanGameRoute()), child: BrutalismContainer(child: Text('Hangman', style: TextStyle(color: AppColors.text, fontSize: 20)))),
-           SizedBox(height: 16),
-            InkWell(onTap: () => context.router.push(WordleGameRoute()), child: BrutalismContainer(child: Text('Wordle', style: TextStyle(color: AppColors.text, fontSize: 20)))),
-           SizedBox(height: 16),
-            InkWell(onTap: () => context.router.push(TetrisGameRoute()), child: BrutalismContainer(child: Text('Tetris', style: TextStyle(color: AppColors.text, fontSize: 20)))),
-          
-          
-          
+            InkWell(
+              onTap: () => context.router.push(HangmanGameRoute()),
+              child: BrutalismContainer(
+                child: Text(
+                  'Hangman',
+                  style: TextStyle(color: AppColors.text, fontSize: 20),
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+            InkWell(
+              onTap: () => context.router.push(WordleGameRoute()),
+              child: BrutalismContainer(
+                child: Text(
+                  'Wordle',
+                  style: TextStyle(color: AppColors.text, fontSize: 20),
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+            InkWell(
+              onTap: () => context.router.push(TetrisGameRoute()),
+              child: BrutalismContainer(
+                child: Text(
+                  'Tetris',
+                  style: TextStyle(color: AppColors.text, fontSize: 20),
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+            InkWell(
+              onTap: () {
+                if (getIt<AppCubit>().state.userData != null) {
+                  context.router.push(
+                    RestaurantDashboardRoute(
+                      id: getIt<AppCubit>().state.userData!.restaurantId!,
+                    ),
+                  );
+                } else {
+                  context.router.push(RestaurantManagerRoute());
+                }
+              },
+              child: BrutalismContainer(
+                child: Text(
+                  'Restaurant Manager',
+                  style: TextStyle(color: AppColors.text, fontSize: 20),
+                ),
+              ),
+            ),
           ],
         ),
       ),

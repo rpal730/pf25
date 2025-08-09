@@ -14,9 +14,6 @@ abstract class BaseHydratedCubit<T> extends HydratedCubit<T> {
     log("State size: $stateSize bytes");
   }
 
-
-
-
   @override
   T? fromJson(Map<String, dynamic> json);
 

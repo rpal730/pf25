@@ -29,13 +29,13 @@ class _TetrisGameScreenState extends State<TetrisGameScreen> {
   int score = 0;
   bool gameOver = false;
   final Random _rand = Random();
-           // parameterize cell size
- double cellSize = 16;
- double cellMargin = 1; // same as original margin in _buildCell
+  // parameterize cell size
+  double cellSize = 16;
+  double cellMargin = 1; // same as original margin in _buildCell
 
-// compute total width/height including internal padding
- double ? boardWidth ;
- double ? boardHeight;
+  // compute total width/height including internal padding
+  double? boardWidth;
+  double? boardHeight;
 
   @override
   void initState() {
@@ -43,14 +43,15 @@ class _TetrisGameScreenState extends State<TetrisGameScreen> {
     _newBoard();
     _spawnPiece();
     _startTicker();
-     // request focus so keyboard works immediately
+    // request focus so keyboard works immediately
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _focusNode.requestFocus();
     });
-boardWidth = cols * (cellSize + 2 * cellMargin);
- boardHeight = rows * (cellSize + 2 * cellMargin);
+    boardWidth = cols * (cellSize + 2 * cellMargin);
+    boardHeight = rows * (cellSize + 2 * cellMargin);
   }
-    final FocusNode _focusNode = FocusNode();
+
+  final FocusNode _focusNode = FocusNode();
 
   void _handleKey(KeyEvent event) {
     if (event is! KeyEvent) return; // only on key down
@@ -67,7 +68,8 @@ boardWidth = cols * (cellSize + 2 * cellMargin);
       _drop();
     } else if (key == LogicalKeyboardKey.space) {
       _hardDrop();
-    } else if (key == LogicalKeyboardKey.arrowUp || key == LogicalKeyboardKey.keyX) {
+    } else if (key == LogicalKeyboardKey.arrowUp ||
+        key == LogicalKeyboardKey.keyX) {
       _rotate();
     }
   }
@@ -102,7 +104,8 @@ boardWidth = cols * (cellSize + 2 * cellMargin);
         if (tet.matrix[y][x] == 0) continue;
         int boardX = pos.x + x;
         int boardY = pos.y + y;
-        if (boardX < 0 || boardX >= cols || boardY < 0 || boardY >= rows) return false;
+        if (boardX < 0 || boardX >= cols || boardY < 0 || boardY >= rows)
+          return false;
         if (board[boardY][boardX] != null) return false;
       }
     }
@@ -139,7 +142,9 @@ boardWidth = cols * (cellSize + 2 * cellMargin);
     if (linesCleared > 0) {
       score += (linesCleared * linesCleared) * 100; // simple scoring
       // speed up slightly
-      tickDuration = Duration(milliseconds: max(100, tickDuration.inMilliseconds - 15 * linesCleared));
+      tickDuration = Duration(
+        milliseconds: max(100, tickDuration.inMilliseconds - 15 * linesCleared),
+      );
       _startTicker();
     }
   }
@@ -208,7 +213,7 @@ boardWidth = cols * (cellSize + 2 * cellMargin);
   @override
   void dispose() {
     ticker?.cancel();
-        _focusNode.dispose();
+    _focusNode.dispose();
 
     super.dispose();
   }
@@ -219,28 +224,39 @@ boardWidth = cols * (cellSize + 2 * cellMargin);
     if (active != null) {
       final relY = y - position.y;
       final relX = x - position.x;
-      if (relY >= 0 && relY < active!.matrix.length && relX >= 0 && relX < active!.matrix[0].length && active!.matrix[relY][relX] != 0) {
+      if (relY >= 0 &&
+          relY < active!.matrix.length &&
+          relX >= 0 &&
+          relX < active!.matrix[0].length &&
+          active!.matrix[relY][relX] != 0) {
         color = active!.color;
       }
     }
-     return Container(
-    decoration: BoxDecoration(
-      color: color ?? AppColors.backgroundBase,
-      border: Border.all(color: AppColors.textBase.withOpacity(0.1), width: 1),
-      borderRadius: BorderRadius.circular(4),
-    ),
-  );
+    return Container(
+      decoration: BoxDecoration(
+        color: color ?? AppColors.backgroundBase,
+        border: Border.all(
+          color: AppColors.textBase.withOpacity(0.1),
+          width: 1,
+        ),
+        borderRadius: BorderRadius.circular(4),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         toolbarHeight: 80,
         centerTitle: true,
-        title: InkWell(onTap: () => context.router.pop(), child: BrutalismContainer(child: Icon(Icons.arrow_back_ios, color: Colors.black, size: 16))),
+        title: InkWell(
+          onTap: () => context.router.pop(),
+          child: BrutalismContainer(
+            child: Icon(Icons.arrow_back_ios, color: Colors.black, size: 16),
+          ),
+        ),
       ),
       body: KeyboardListener(
         focusNode: _focusNode,
@@ -249,73 +265,108 @@ boardWidth = cols * (cellSize + 2 * cellMargin);
           child: Column(
             children: [
               // Header / info
-              Wrap(children: [Text('Score: $score', style: const TextStyle(fontWeight: FontWeight.bold))]),
-              const SizedBox(height: 8),
-             
-        
-        SizedBox(
-          width: boardWidth,
-          height: boardHeight,
-          child: AspectRatio(
-            aspectRatio: cols / rows,
-            child: Container(
-        padding: const EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          color: AppColors.textBase.withOpacity(0.05),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Stack(
-          children: [
-            GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: rows * cols,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: cols,
-                mainAxisSpacing: 2,
-                crossAxisSpacing: 2,
-                childAspectRatio: 1,
-              ),
-              itemBuilder: (context, index) {
-                final y = index ~/ cols;
-                final x = index % cols;
-                return SizedBox(
-                  width: cellSize,
-                  height: cellSize,
-                  child: _buildCell(y, x),
-                );
-              },
-            ),
-            if (gameOver)
-              Center(
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.7),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Text('Game Over', style: TextStyle(color: Colors.white, fontSize: 20)),
-                ),
-              ),
-          ],
-        ),
-            ),
-          ),
-        ),
-              const SizedBox(height: 8),
-                 Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Wrap(
                 children: [
-                  IconButton(onPressed: _moveLeft, icon: const Icon(Icons.arrow_left)),
-                  IconButton(onPressed: _rotate, icon: const Icon(Icons.rotate_right)),
-                  IconButton(onPressed: _moveRight, icon: const Icon(Icons.arrow_right)),
-                  IconButton(onPressed: _drop, icon: const Icon(Icons.arrow_downward)),
-                  IconButton(onPressed: _hardDrop, icon: const Icon(Icons.vertical_align_bottom)),
+                  Text(
+                    'Score: $score',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
-              SizedBox(height: 20), ElevatedButton(onPressed: _reset, style: ElevatedButton.styleFrom(backgroundColor: AppColors.accentPeach), child: const Text('Restart')),
-        
+              const SizedBox(height: 8),
+
+              SizedBox(
+                width: boardWidth,
+                height: boardHeight,
+                child: AspectRatio(
+                  aspectRatio: cols / rows,
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: AppColors.textBase.withOpacity(0.05),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Stack(
+                      children: [
+                        GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: rows * cols,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: cols,
+                                mainAxisSpacing: 2,
+                                crossAxisSpacing: 2,
+                                childAspectRatio: 1,
+                              ),
+                          itemBuilder: (context, index) {
+                            final y = index ~/ cols;
+                            final x = index % cols;
+                            return SizedBox(
+                              width: cellSize,
+                              height: cellSize,
+                              child: _buildCell(y, x),
+                            );
+                          },
+                        ),
+                        if (gameOver)
+                          Center(
+                            child: Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.7),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Text(
+                                'Game Over',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: _moveLeft,
+                    icon: const Icon(Icons.arrow_left),
+                  ),
+                  IconButton(
+                    onPressed: _rotate,
+                    icon: const Icon(Icons.rotate_right),
+                  ),
+                  IconButton(
+                    onPressed: _moveRight,
+                    icon: const Icon(Icons.arrow_right),
+                  ),
+                  IconButton(
+                    onPressed: _drop,
+                    icon: const Icon(Icons.arrow_downward),
+                  ),
+                  IconButton(
+                    onPressed: _hardDrop,
+                    icon: const Icon(Icons.vertical_align_bottom),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _reset,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.accentPeach,
+                ),
+                child: const Text('Restart'),
+              ),
+
               // Controls
-             ],
+            ],
           ),
         ),
       ),
@@ -332,7 +383,10 @@ class Tetromino {
   Tetromino rotated() {
     final rows = matrix.length;
     final cols = matrix[0].length;
-    Matrix newMatrix = List.generate(cols, (_) => List.generate(rows, (_) => 0));
+    Matrix newMatrix = List.generate(
+      cols,
+      (_) => List.generate(rows, (_) => 0),
+    );
     for (int y = 0; y < rows; y++) {
       for (int x = 0; x < cols; x++) {
         newMatrix[x][rows - 1 - y] = matrix[y][x];

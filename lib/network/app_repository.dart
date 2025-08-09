@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flutter_web_portfolio_2025/app/cubit/app_cubit.dart';
@@ -6,31 +7,31 @@ import 'package:flutter_web_portfolio_2025/network/dio_client.dart';
 
 @lazySingleton
 class AppRepository {
-  final AppCubit _appCubit = getIt<AppCubit>();
-
-  final DioClient _dioClient = DioClient(Dio());
-
-  Options get options => Options(
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ${_appCubit.state.token}',
-        },
-      );
-
-  //-----------
-
-  Future<Response> dummyapicallGooglecom() async {
-    final response = await _dioClient.get('https://www.google.com');
-    return response;
+  Future<void> setRestaurantData({
+    required Map<String, dynamic> data,
+    String? id,
+  }) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('restaurants')
+          .doc(id)
+          .set(data, SetOptions(merge: true));
+    } catch (e) {
+      throw Exception("Error saving answer: $e");
+    }
   }
 
-  Future<Response> dummyapicallBadUrl() async {
-    final response = await _dioClient.get('htaad.09.com');
-    return response;
-  }
-
-  Future<Response> dummyapicallthroException() async {
-    await _dioClient.get('htaad.09.com');
-    throw Exception();
+  Future<void> setUserData({
+    String? id,
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(id)
+          .set(data, SetOptions(merge: true));
+    } catch (e) {
+      throw Exception("Error saving answer: $e");
+    }
   }
 }

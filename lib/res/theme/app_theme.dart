@@ -22,7 +22,6 @@ class AppTheme {
       inversePrimary: AppColors.primary.withOpacity(0.2),
       inverseSurface: AppColors.primary,
       onInverseSurface: AppColors.white,
-      
     );
 
     return ThemeData.from(
@@ -38,8 +37,9 @@ class AppTheme {
         color: colorScheme.surface,
         foregroundColor: colorScheme.onSurface,
         surfaceTintColor: colorScheme.surface,
-        titleTextStyle:
-            textTheme.displayLarge!.copyWith(color: colorScheme.onSurface),
+        titleTextStyle: textTheme.displayLarge!.copyWith(
+          color: colorScheme.onSurface,
+        ),
       ),
       dialogTheme: DialogTheme(
         backgroundColor: colorScheme.surface,
@@ -50,17 +50,17 @@ class AppTheme {
         contentTextStyle: textTheme.bodyLarge!.copyWith(color: AppColors.white),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
-        style: outlinedButtonStyle.merge(OutlinedButton.styleFrom(
-          foregroundColor: colorScheme.onSurface,
-          side: BorderSide(color: colorScheme.onSurface.withOpacity(0.4)),
-        )),
+        style: outlinedButtonStyle.merge(
+          OutlinedButton.styleFrom(
+            foregroundColor: colorScheme.onSurface,
+            side: BorderSide(color: colorScheme.onSurface.withOpacity(0.4)),
+          ),
+        ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: elevatedButtonStyle(colorScheme),
       ),
-      textButtonTheme: TextButtonThemeData(
-        style: textButtonStyle,
-      ),
+      textButtonTheme: TextButtonThemeData(style: textButtonStyle),
       inputDecorationTheme: inputDecorationTheme.copyWith(
         fillColor: colorScheme.onSurface.withOpacity(0.05),
         helperStyle: textTheme.bodySmall,
@@ -71,7 +71,6 @@ class AppTheme {
     );
   }
 
-  
   //DARK theme is not required right now may be used in future then work will be done here
   // static ThemeData dark() {
   //   final textTheme = AppTextTheme.dark();

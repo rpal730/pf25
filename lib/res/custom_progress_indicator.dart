@@ -6,15 +6,16 @@ class CustomProgressIndicator extends StatelessWidget {
   final int totalPages;
   final int currentPage;
 
-  const CustomProgressIndicator({super.key, 
-     this.totalPages=-1,
+  const CustomProgressIndicator({
+    super.key,
+    this.totalPages = -1,
     required this.currentPage,
   });
 
   @override
   Widget build(BuildContext context) {
     double progress = currentPage / totalPages;
-    if(totalPages<0){
+    if (totalPages < 0) {
       return const SizedBox();
     }
 
@@ -29,7 +30,9 @@ class CustomProgressIndicator extends StatelessWidget {
               value: progress,
               minHeight: 10,
               backgroundColor: AppColors.white,
-              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+              valueColor: const AlwaysStoppedAnimation<Color>(
+                AppColors.primary,
+              ),
             ),
           ),
         ),

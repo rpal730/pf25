@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AppState {
 
- String? get token;
+ String? get token; UserModel? get userData;
 /// Create a copy of AppState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $AppStateCopyWith<AppState> get copyWith => _$AppStateCopyWithImpl<AppState>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppState&&(identical(other.token, token) || other.token == token));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppState&&(identical(other.token, token) || other.token == token)&&(identical(other.userData, userData) || other.userData == userData));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,token);
+int get hashCode => Object.hash(runtimeType,token,userData);
 
 @override
 String toString() {
-  return 'AppState(token: $token)';
+  return 'AppState(token: $token, userData: $userData)';
 }
 
 
@@ -48,11 +48,11 @@ abstract mixin class $AppStateCopyWith<$Res>  {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) _then) = _$AppStateCopyWithImpl;
 @useResult
 $Res call({
- String? token
+ String? token, UserModel? userData
 });
 
 
-
+$UserModelCopyWith<$Res>? get userData;
 
 }
 /// @nodoc
@@ -65,13 +65,26 @@ class _$AppStateCopyWithImpl<$Res>
 
 /// Create a copy of AppState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? token = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? token = freezed,Object? userData = freezed,}) {
   return _then(_self.copyWith(
 token: freezed == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,userData: freezed == userData ? _self.userData : userData // ignore: cast_nullable_to_non_nullable
+as UserModel?,
   ));
 }
+/// Create a copy of AppState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserModelCopyWith<$Res>? get userData {
+    if (_self.userData == null) {
+    return null;
+  }
 
+  return $UserModelCopyWith<$Res>(_self.userData!, (value) {
+    return _then(_self.copyWith(userData: value));
+  });
+}
 }
 
 
@@ -153,10 +166,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? token)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? token,  UserModel? userData)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AppState() when $default != null:
-return $default(_that.token);case _:
+return $default(_that.token,_that.userData);case _:
   return orElse();
 
 }
@@ -174,10 +187,10 @@ return $default(_that.token);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? token)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? token,  UserModel? userData)  $default,) {final _that = this;
 switch (_that) {
 case _AppState():
-return $default(_that.token);case _:
+return $default(_that.token,_that.userData);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -194,10 +207,10 @@ return $default(_that.token);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? token)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? token,  UserModel? userData)?  $default,) {final _that = this;
 switch (_that) {
 case _AppState() when $default != null:
-return $default(_that.token);case _:
+return $default(_that.token,_that.userData);case _:
   return null;
 
 }
@@ -209,10 +222,11 @@ return $default(_that.token);case _:
 @JsonSerializable()
 
 class _AppState extends AppState {
-  const _AppState({this.token}): super._();
+  const _AppState({this.token, this.userData}): super._();
   factory _AppState.fromJson(Map<String, dynamic> json) => _$AppStateFromJson(json);
 
 @override final  String? token;
+@override final  UserModel? userData;
 
 /// Create a copy of AppState
 /// with the given fields replaced by the non-null parameter values.
@@ -227,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppState&&(identical(other.token, token) || other.token == token));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppState&&(identical(other.token, token) || other.token == token)&&(identical(other.userData, userData) || other.userData == userData));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,token);
+int get hashCode => Object.hash(runtimeType,token,userData);
 
 @override
 String toString() {
-  return 'AppState(token: $token)';
+  return 'AppState(token: $token, userData: $userData)';
 }
 
 
@@ -247,11 +261,11 @@ abstract mixin class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res>
   factory _$AppStateCopyWith(_AppState value, $Res Function(_AppState) _then) = __$AppStateCopyWithImpl;
 @override @useResult
 $Res call({
- String? token
+ String? token, UserModel? userData
 });
 
 
-
+@override $UserModelCopyWith<$Res>? get userData;
 
 }
 /// @nodoc
@@ -264,14 +278,27 @@ class __$AppStateCopyWithImpl<$Res>
 
 /// Create a copy of AppState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? token = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? token = freezed,Object? userData = freezed,}) {
   return _then(_AppState(
 token: freezed == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,userData: freezed == userData ? _self.userData : userData // ignore: cast_nullable_to_non_nullable
+as UserModel?,
   ));
 }
 
+/// Create a copy of AppState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserModelCopyWith<$Res>? get userData {
+    if (_self.userData == null) {
+    return null;
+  }
 
+  return $UserModelCopyWith<$Res>(_self.userData!, (value) {
+    return _then(_self.copyWith(userData: value));
+  });
+}
 }
 
 // dart format on

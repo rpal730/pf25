@@ -28,12 +28,9 @@ class CustomNavbarWidget extends StatelessWidget {
         duration: const Duration(milliseconds: 300),
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
         decoration: BoxDecoration(
-          color: isSelected
-              ? AppColors.primary
-              : Colors.transparent,
-          borderRadius: isSelected
-              ? BorderRadius.circular(AppDimentions.px26)
-              : null,
+          color: isSelected ? AppColors.primary : Colors.transparent,
+          borderRadius:
+              isSelected ? BorderRadius.circular(AppDimentions.px26) : null,
         ),
         child: Row(
           children: [
@@ -45,9 +42,7 @@ class CustomNavbarWidget extends StatelessWidget {
               child: Icon(
                 isSelected ? selectedIcon : unSelectedIcon,
                 key: ValueKey(isSelected),
-                color: isSelected
-                    ? AppColors.text
-                    : AppColors.text,
+                color: isSelected ? AppColors.text : AppColors.text,
               ),
             ),
             if (isSelected) ...[
@@ -58,9 +53,9 @@ class CustomNavbarWidget extends StatelessWidget {
                 child: Text(
                   label,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: AppColors.text,
-                        fontSize: 16,
-                      ),
+                    color: AppColors.text,
+                    fontSize: 16,
+                  ),
                 ),
               ),
             ],

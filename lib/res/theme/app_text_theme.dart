@@ -48,7 +48,7 @@ class AppTextTheme {
         fontWeight: FontWeight.w600,
         height: 1.3,
       ),
-      headlineSmall:  GoogleFonts.montserrat(
+      headlineSmall: GoogleFonts.montserrat(
         fontSize: 20,
         fontWeight: FontWeight.w700,
         height: 1.4,
@@ -57,16 +57,16 @@ class AppTextTheme {
         fontSize: 24,
         fontWeight: FontWeight.w700,
       ),
-      displaySmall:  GoogleFonts.montserrat(
+      displaySmall: GoogleFonts.montserrat(
         fontSize: 30,
         fontWeight: FontWeight.w700,
         height: 1.2,
       ),
-      displayMedium:  GoogleFonts.montserrat(
+      displayMedium: GoogleFonts.montserrat(
         fontSize: 38,
         fontWeight: FontWeight.w700,
       ),
-      displayLarge:  GoogleFonts.montserrat(
+      displayLarge: GoogleFonts.montserrat(
         fontSize: 16,
         fontWeight: FontWeight.w700,
       ),
@@ -90,7 +90,8 @@ class AppTextTheme {
       headline6Color: AppColors.text,
     );
   }
-//tobe used later
+
+  //tobe used later
   // static TextTheme dark() {
   //   return textTheme().withColors(
   //     captionColor: AppColors.cobaltBlue60,
@@ -126,20 +127,22 @@ extension TextColors on TextTheme {
     Color headline5Color = AppColors.text,
     Color headline6Color = AppColors.text,
   }) {
-    return merge(TextTheme(
-      labelSmall: TextStyle(color: overlineColor),
-      bodySmall: TextStyle(color: captionColor),
-      labelLarge: TextStyle(color: buttonColor),
-      bodyLarge: TextStyle(color: bodyText1Color),
-      bodyMedium: TextStyle(color: bodyText2Color),
-      titleMedium: TextStyle(color: subtitle1Color),
-      titleSmall: TextStyle(color: subtitle2Color),
-      titleLarge: TextStyle(color: headline6Color),
-      headlineSmall: TextStyle(color: headline5Color),
-      headlineMedium: TextStyle(color: headline4Color),
-      displaySmall: TextStyle(color: headline3Color),
-      displayMedium: TextStyle(color: headline2Color),
-      displayLarge: TextStyle(color: headline1Color),
-    ));
+    return merge(
+      TextTheme(
+        labelSmall: TextStyle(color: overlineColor),
+        bodySmall: TextStyle(color: captionColor),
+        labelLarge: TextStyle(color: buttonColor),
+        bodyLarge: TextStyle(color: bodyText1Color),
+        bodyMedium: TextStyle(color: bodyText2Color),
+        titleMedium: TextStyle(color: subtitle1Color),
+        titleSmall: TextStyle(color: subtitle2Color),
+        titleLarge: TextStyle(color: headline6Color),
+        headlineSmall: TextStyle(color: headline5Color),
+        headlineMedium: TextStyle(color: headline4Color),
+        displaySmall: TextStyle(color: headline3Color),
+        displayMedium: TextStyle(color: headline2Color),
+        displayLarge: TextStyle(color: headline1Color),
+      ),
+    );
   }
 }

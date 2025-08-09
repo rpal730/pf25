@@ -11,20 +11,24 @@ class DioClient {
   DioClient(this._dio) {
     if (kDebugMode) {
       log("Dio Client INTERCEPTORS START: -----------");
-      _dio.interceptors.add(LogInterceptor(
+      _dio.interceptors.add(
+        LogInterceptor(
           responseBody: true,
           error: true,
           requestHeader: true,
           responseHeader: false,
           request: true,
-          requestBody: true));
+          requestBody: true,
+        ),
+      );
       log("INTERCEPTORS: ------------------------END");
     }
   }
 
   // Centralized error handler
   Future<Response<T>> _handleErrors<T>(
-      Future<Response<T>> Function() dioCall) async {
+    Future<Response<T>> Function() dioCall,
+  ) async {
     try {
       var result = await dioCall();
 
@@ -47,7 +51,9 @@ class DioClient {
         log("Timeout Error: ${e.message}");
         throw Exception('Request timed out');
       } else if (e.response != null) {
-        log("HTTP Error: ${e.response?.statusCode} - ${e.response?.statusMessage}");
+        log(
+          "HTTP Error: ${e.response?.statusCode} - ${e.response?.statusMessage}",
+        );
       } else {
         log("Unexpected Error: ${e.message}");
       }
@@ -66,13 +72,15 @@ class DioClient {
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
   }) async {
-    return _handleErrors(() => _dio.get(
-          uri,
-          queryParameters: queryParameters,
-          options: options,
-          cancelToken: cancelToken,
-          onReceiveProgress: onReceiveProgress,
-        ));
+    return _handleErrors(
+      () => _dio.get(
+        uri,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+        onReceiveProgress: onReceiveProgress,
+      ),
+    );
   }
 
   // Post:----------------------------------------------------------------------
@@ -86,15 +94,17 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     log('POST Data: $data');
-    return _handleErrors(() => _dio.post(
-          uri,
-          data: data,
-          queryParameters: queryParameters,
-          options: options,
-          cancelToken: cancelToken,
-          onSendProgress: onSendProgress,
-          onReceiveProgress: onReceiveProgress,
-        ));
+    return _handleErrors(
+      () => _dio.post(
+        uri,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+      ),
+    );
   }
 
   // PUT:----------------------------------------------------------------------
@@ -107,15 +117,17 @@ class DioClient {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    return _handleErrors(() => _dio.put(
-          uri,
-          data: data,
-          queryParameters: queryParameters,
-          options: options,
-          cancelToken: cancelToken,
-          onSendProgress: onSendProgress,
-          onReceiveProgress: onReceiveProgress,
-        ));
+    return _handleErrors(
+      () => _dio.put(
+        uri,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+      ),
+    );
   }
 
   // PATCH:----------------------------------------------------------------------
@@ -128,15 +140,17 @@ class DioClient {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    return _handleErrors(() => _dio.patch(
-          uri,
-          data: data,
-          queryParameters: queryParameters,
-          options: options,
-          cancelToken: cancelToken,
-          onSendProgress: onSendProgress,
-          onReceiveProgress: onReceiveProgress,
-        ));
+    return _handleErrors(
+      () => _dio.patch(
+        uri,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+      ),
+    );
   }
 
   // DELETE:----------------------------------------------------------------------
@@ -147,12 +161,14 @@ class DioClient {
     Options? options,
     CancelToken? cancelToken,
   }) async {
-    return _handleErrors(() => _dio.delete(
-          uri,
-          data: data,
-          queryParameters: queryParameters,
-          options: options,
-          cancelToken: cancelToken,
-        ));
+    return _handleErrors(
+      () => _dio.delete(
+        uri,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+      ),
+    );
   }
 }

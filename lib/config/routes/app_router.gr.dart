@@ -59,6 +59,70 @@ class LoginRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [RestaurantDashboardScreen]
+class RestaurantDashboardRoute
+    extends PageRouteInfo<RestaurantDashboardRouteArgs> {
+  RestaurantDashboardRoute({required String id, List<PageRouteInfo>? children})
+    : super(
+        RestaurantDashboardRoute.name,
+        args: RestaurantDashboardRouteArgs(id: id),
+        rawPathParams: {'id': id},
+        initialChildren: children,
+      );
+
+  static const String name = 'RestaurantDashboardRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final pathParams = data.inheritedPathParams;
+      final args = data.argsAs<RestaurantDashboardRouteArgs>(
+        orElse:
+            () => RestaurantDashboardRouteArgs(id: pathParams.getString('id')),
+      );
+      return RestaurantDashboardScreen(id: args.id);
+    },
+  );
+}
+
+class RestaurantDashboardRouteArgs {
+  const RestaurantDashboardRouteArgs({required this.id});
+
+  final String id;
+
+  @override
+  String toString() {
+    return 'RestaurantDashboardRouteArgs{id: $id}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! RestaurantDashboardRouteArgs) return false;
+    return id == other.id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
+}
+
+/// generated route for
+/// [RestaurantManagerScreen]
+class RestaurantManagerRoute extends PageRouteInfo<void> {
+  const RestaurantManagerRoute({List<PageRouteInfo>? children})
+    : super(RestaurantManagerRoute.name, initialChildren: children);
+
+  static const String name = 'RestaurantManagerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const RestaurantManagerScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [Screen3Screen]
 class Route3Route extends PageRouteInfo<void> {
   const Route3Route({List<PageRouteInfo>? children})

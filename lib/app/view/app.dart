@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_web_portfolio_2025/config/routes/app_router.dart';
 import 'package:flutter_web_portfolio_2025/res/theme/app_theme.dart';
@@ -15,10 +12,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      routerConfig:_appRouter.config(),
+      routerConfig: _appRouter.config(),
       theme: AppTheme.light(),
       themeMode: ThemeMode.light,
-      
     );
   }
 }

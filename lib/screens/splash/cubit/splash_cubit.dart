@@ -14,9 +14,9 @@ class SplashCubit extends Cubit<SplashEnum> {
     Future.delayed(const Duration(seconds: 3), () {
       try {
         var token = getIt<AppCubit>().state.token;
-        if(token==null) {
+        if (token == null) {
           emit(SplashEnum.unauthenticated);
-        }else{
+        } else {
           emit(SplashEnum.authenticated);
         }
       } catch (e, stackTrace) {

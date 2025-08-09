@@ -1,5 +1,3 @@
-
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,8 +7,6 @@ import 'package:flutter_web_portfolio_2025/screens/splash/cubit/splash_cubit.dar
 import 'package:flutter_web_portfolio_2025/screens/splash/cubit/splash_enum.dart';
 
 @RoutePage()
-
-
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
@@ -21,23 +17,24 @@ class SplashScreen extends StatelessWidget {
       child: Scaffold(
         body: BlocListener<SplashCubit, SplashEnum>(
           listener: (context, state) {
-          //  switch (state) {
+            //  switch (state) {
             context.router.replace(const DashboardRoute());
             //  case SplashEnum.authenticated:
             //  context.router.replace(const DashboardRoute());
-               
-            //    break; 
+
+            //    break;
             //    case SplashEnum.unauthenticated:
             //  context.router.replace(const LoginRoute());
-               
-              //  break;
+
+            //  break;
             //  default:
-          //  }
+            //  }
           },
-          child:  Center(
+          child: Center(
             child: SizedBox(
               width: figmaScreenWidth,
-              child: Image.asset("assets/download.jpeg")),
+              child: Image.asset("assets/download.jpeg"),
+            ),
           ),
         ),
       ),

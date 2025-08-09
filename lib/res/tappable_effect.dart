@@ -10,7 +10,7 @@ class TappableEffect extends StatefulWidget {
 
   final VoidCallback? onTap;
   final Widget child;
-  final double borderRadius ;
+  final double borderRadius;
 
   @override
   TappableEffectState createState() => TappableEffectState();

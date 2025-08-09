@@ -91,15 +91,23 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (controller != null && onChanged != null && controller!.text.isNotEmpty) {
+    if (controller != null &&
+        onChanged != null &&
+        controller!.text.isNotEmpty) {
       onChanged!(controller!.text);
     }
     if (initialValue != null) {
       onChanged!(initialValue!);
     }
 
-    final prefixWidth = prefixWidget != null ? 50.0 : 0.0; // Adjust width as per your prefix widget size
-    final suffixWidth = suffixWidget != null ? 50.0 : 0.0; // Adjust width as per your suffix widget size
+    final prefixWidth =
+        prefixWidget != null
+            ? 50.0
+            : 0.0; // Adjust width as per your prefix widget size
+    final suffixWidth =
+        suffixWidget != null
+            ? 50.0
+            : 0.0; // Adjust width as per your suffix widget size
 
     return Container(
       constraints: BoxConstraints(
@@ -122,8 +130,10 @@ class CustomTextField extends StatelessWidget {
                   Text(
                     subtitle ?? '',
                     style: const TextStyle(
-                        color: Colors.grey, fontWeight: FontWeight.w500),
-                  )
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ],
               ],
             ),
@@ -132,7 +142,10 @@ class CustomTextField extends StatelessWidget {
           Stack(
             children: [
               SizedBox(
-                height: heightAccToFigma(height: height ?? 65, context: context), // Set a fixed height for the text field
+                height: heightAccToFigma(
+                  height: height ?? 65,
+                  context: context,
+                ), // Set a fixed height for the text field
                 width: width,
                 child: TextFormField(
                   obscureText: obscureText ?? false,
@@ -143,9 +156,10 @@ class CustomTextField extends StatelessWidget {
                   controller: controller,
                   initialValue: initialValue,
                   style: TextStyle(
-                      color: AppColors.text,
-                      fontSize: fontSize,
-                      fontWeight: FontWeight.w500),
+                    color: AppColors.text,
+                    fontSize: fontSize,
+                    fontWeight: FontWeight.w500,
+                  ),
                   keyboardType: inputType,
                   onSaved: onSaved,
                   textInputAction: textInputAction,
@@ -158,7 +172,8 @@ class CustomTextField extends StatelessWidget {
                   readOnly: readOnly,
                   onTap: onTap,
                   inputFormatters: inputFormatters,
-                  textAlignVertical: TextAlignVertical.center, // Center text vertically
+                  textAlignVertical:
+                      TextAlignVertical.center, // Center text vertically
                   decoration: InputDecoration(
                     counterText: '',
                     helperText: helperText,
@@ -167,65 +182,83 @@ class CustomTextField extends StatelessWidget {
                     fillColor: textFieldBackgroundColor ?? AppColors.background,
                     hintText: hint,
                     hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: AppColors.text.shade300, fontSize: 18
+                      color: AppColors.text.shade300,
+                      fontSize: 18,
                     ),
-                    contentPadding: padding ??
+                    contentPadding:
+                        padding ??
                         EdgeInsets.only(
-                            left: AppDimentions.px15 + prefixWidth, // Adjust padding based on prefix widget
-                            right: AppDimentions.px15 + suffixWidth,
-                            top: AppDimentions.px10, 
-                            bottom: AppDimentions.px30), // Adjust vertical padding for better centering
+                          left:
+                              AppDimentions.px15 +
+                              prefixWidth, // Adjust padding based on prefix widget
+                          right: AppDimentions.px15 + suffixWidth,
+                          top: AppDimentions.px10,
+                          bottom: AppDimentions.px30,
+                        ), // Adjust vertical padding for better centering
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(borderRadius ?? AppDimentions.px12),
-                      borderSide:
-                          const BorderSide(color: AppColors.primary, width: 1),
+                      borderRadius: BorderRadius.circular(
+                        borderRadius ?? AppDimentions.px12,
+                      ),
+                      borderSide: const BorderSide(
+                        color: AppColors.primary,
+                        width: 1,
+                      ),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(borderRadius ?? AppDimentions.px12),
-                      borderSide:
-                          BorderSide(color: AppColors.primary.shade100, width: 2.0),
+                      borderRadius: BorderRadius.circular(
+                        borderRadius ?? AppDimentions.px12,
+                      ),
+                      borderSide: BorderSide(
+                        color: AppColors.primary.shade100,
+                        width: 2.0,
+                      ),
                     ),
                     border: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: AppColors.primary.shade100, width: 1),
+                      borderSide: BorderSide(
+                        color: AppColors.primary.shade100,
+                        width: 1,
+                      ),
                       borderRadius: BorderRadius.circular(AppDimentions.px18),
                     ),
                   ),
                 ),
               ),
 
-              if(prefixWidget!=null)
-              Positioned(
-                left: 8,
-                child: SizedBox(
-                  width: prefixWidth,
-                             height:   heightAccToFigma(height: height ?? 65, context: context),
-                  
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    
-                    children: [
-                    prefixWidget ??const SizedBox()
-                  ],)),
-              ),
+              if (prefixWidget != null)
+                Positioned(
+                  left: 8,
+                  child: SizedBox(
+                    width: prefixWidth,
+                    height: heightAccToFigma(
+                      height: height ?? 65,
+                      context: context,
+                    ),
 
-               if(suffixWidget!=null)
-              Positioned(
-                right: 8,
-                child: SizedBox(
-                  width: suffixWidth,
-                             height:   heightAccToFigma(height: height ?? 65, context: context),
-                  
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    
-                    children: [
-                    suffixWidget ??const SizedBox()
-                  ],)),
-              )
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
 
+                      children: [prefixWidget ?? const SizedBox()],
+                    ),
+                  ),
+                ),
 
+              if (suffixWidget != null)
+                Positioned(
+                  right: 8,
+                  child: SizedBox(
+                    width: suffixWidth,
+                    height: heightAccToFigma(
+                      height: height ?? 65,
+                      context: context,
+                    ),
 
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+
+                      children: [suffixWidget ?? const SizedBox()],
+                    ),
+                  ),
+                ),
 
               // if (prefixWidget != null)
               //   Positioned(

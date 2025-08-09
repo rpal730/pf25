@@ -14,9 +14,6 @@ class Emoji extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      value,
-      style: TextStyle(fontSize: size),
-    );
+    return Text(value, style: TextStyle(fontSize: size));
   }
 }

@@ -69,7 +69,10 @@ class _TicTacToeGameState extends State<TicTacToeGameScreen> {
     if (winner != null) {
       setState(() {
         gameOver = true;
-        status = winner.winner == player ? 'You win!' : (winner.winner == ai ? 'AI wins!' : 'Draw');
+        status =
+            winner.winner == player
+                ? 'You win!'
+                : (winner.winner == ai ? 'AI wins!' : 'Draw');
       });
     } else if (!board.contains(null)) {
       setState(() {
@@ -78,7 +81,11 @@ class _TicTacToeGameState extends State<TicTacToeGameScreen> {
       });
     } else {
       setState(() {
-        status = board.where((e) => e == player).length <= board.where((e) => e == ai).length ? 'Your turn' : 'AI thinking...';
+        status =
+            board.where((e) => e == player).length <=
+                    board.where((e) => e == ai).length
+                ? 'Your turn'
+                : 'AI thinking...';
       });
     }
   }
@@ -160,7 +167,12 @@ class _TicTacToeGameState extends State<TicTacToeGameScreen> {
         automaticallyImplyLeading: false,
         toolbarHeight: 80,
         centerTitle: true,
-        title: InkWell(onTap: () => context.router.pop(), child: BrutalismContainer(child: Icon(Icons.arrow_back_ios, color: Colors.black, size: 16))),
+        title: InkWell(
+          onTap: () => context.router.pop(),
+          child: BrutalismContainer(
+            child: Icon(Icons.arrow_back_ios, color: Colors.black, size: 16),
+          ),
+        ),
       ),
       body: Center(
         child: SizedBox(
@@ -178,7 +190,10 @@ class _TicTacToeGameState extends State<TicTacToeGameScreen> {
                   // Difficulty selector + status
                   Wrap(
                     children: [
-                      const Text('Difficulty:', style: TextStyle(fontWeight: FontWeight.bold)),
+                      const Text(
+                        'Difficulty:',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                       const SizedBox(width: 12),
                       _DifficultyRadio(
                         label: 'Easy',
@@ -211,19 +226,44 @@ class _TicTacToeGameState extends State<TicTacToeGameScreen> {
                     aspectRatio: 1,
                     child: Container(
                       padding: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(border: Border.all(color: AppColors.textBase, width: 3), borderRadius: BorderRadius.circular(12)),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: AppColors.textBase, width: 3),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       child: GridView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: 9,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisSpacing: 4, crossAxisSpacing: 4),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              mainAxisSpacing: 4,
+                              crossAxisSpacing: 4,
+                            ),
                         itemBuilder: (context, i) {
                           final val = board[i];
                           return GestureDetector(
                             onTap: () => playerMove(i),
                             child: Container(
-                              decoration: BoxDecoration(color: Colors.white, border: Border.all(color: AppColors.textBase, width: 2), borderRadius: BorderRadius.circular(8)),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  color: AppColors.textBase,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                               child: Center(
-                                child: Text(val ?? '', style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: val == player ? AppColors.primary.shade700 : AppColors.accentPeach)),
+                                child: Text(
+                                  val ?? '',
+                                  style: TextStyle(
+                                    fontSize: 48,
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        val == player
+                                            ? AppColors.primary.shade700
+                                            : AppColors.accentPeach,
+                                  ),
+                                ),
                               ),
                             ),
                           );
@@ -233,10 +273,23 @@ class _TicTacToeGameState extends State<TicTacToeGameScreen> {
                   ),
 
                   SizedBox(height: 12),
-                  Text(status, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+                  Text(
+                    status,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                    ),
+                  ),
                   const SizedBox(width: 12),
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: AppColors.accentPeach, elevation: 0, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.accentPeach,
+                      elevation: 0,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                    ),
                     onPressed: reset,
                     child: const Text('Restart'),
                   ),
@@ -256,14 +309,30 @@ class _DifficultyRadio extends StatelessWidget {
   final Difficulty group;
   final ValueChanged<Difficulty?> onChanged;
 
-  const _DifficultyRadio({required this.label, required this.value, required this.group, required this.onChanged});
+  const _DifficultyRadio({
+    required this.label,
+    required this.value,
+    required this.group,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
     final selected = value == group;
     return GestureDetector(
       onTap: () => onChanged(value),
-      child: Row(children: [Radio<Difficulty>(value: value, groupValue: group, onChanged: onChanged, activeColor: AppColors.primary), Text(label), if (selected) const SizedBox(width: 4)]),
+      child: Row(
+        children: [
+          Radio<Difficulty>(
+            value: value,
+            groupValue: group,
+            onChanged: onChanged,
+            activeColor: AppColors.primary,
+          ),
+          Text(label),
+          if (selected) const SizedBox(width: 4),
+        ],
+      ),
     );
   }
 }

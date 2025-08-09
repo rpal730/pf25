@@ -95,7 +95,10 @@ class _WordleGameState extends State<WordleGameScreen> {
   List<LetterEvaluation> _evaluate(String guess) {
     final solChars = _solution.split('');
     final guessChars = guess.split('');
-    final result = List<LetterEvaluation>.filled(wordLength, LetterEvaluation.absent);
+    final result = List<LetterEvaluation>.filled(
+      wordLength,
+      LetterEvaluation.absent,
+    );
 
     // First pass: correct spot
     for (int i = 0; i < wordLength; i++) {
@@ -132,11 +135,16 @@ class _WordleGameState extends State<WordleGameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
+      appBar: AppBar(
         automaticallyImplyLeading: false,
         toolbarHeight: 80,
         centerTitle: true,
-        title: InkWell(onTap: () => context.router.pop(), child: BrutalismContainer(child: Icon(Icons.arrow_back_ios, color: Colors.black, size: 16))),
+        title: InkWell(
+          onTap: () => context.router.pop(),
+          child: BrutalismContainer(
+            child: Icon(Icons.arrow_back_ios, color: Colors.black, size: 16),
+          ),
+        ),
       ),
       body: Center(
         child: SizedBox(
@@ -154,9 +162,13 @@ class _WordleGameState extends State<WordleGameScreen> {
                   // Header
                   Wrap(
                     children: [
-                      const Text('Wordle', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                     
-                    
+                      const Text(
+                        'Wordle',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 8),
@@ -166,7 +178,10 @@ class _WordleGameState extends State<WordleGameScreen> {
                   Column(
                     children: List.generate(maxRows, (row) {
                       String display;
-                      List<LetterEvaluation> evals = List.filled(wordLength, LetterEvaluation.empty);
+                      List<LetterEvaluation> evals = List.filled(
+                        wordLength,
+                        LetterEvaluation.empty,
+                      );
                       if (row < _guesses.length) {
                         display = _guesses[row];
                         evals = _evaluate(display);
@@ -175,7 +190,7 @@ class _WordleGameState extends State<WordleGameScreen> {
                       } else {
                         display = ' ' * wordLength;
                       }
-                        
+
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4),
                         child: Row(
@@ -183,9 +198,10 @@ class _WordleGameState extends State<WordleGameScreen> {
                           children: List.generate(wordLength, (i) {
                             final char = display[i];
                             final isCurrentRow = row == _guesses.length;
-                            final bgColor = row < _guesses.length
-                                ? _colorForEval(evals[i])
-                                : isCurrentRow && i < _current.length
+                            final bgColor =
+                                row < _guesses.length
+                                    ? _colorForEval(evals[i])
+                                    : isCurrentRow && i < _current.length
                                     ? Colors.grey.shade300
                                     : Colors.grey.shade200;
                             return Container(
@@ -195,13 +211,18 @@ class _WordleGameState extends State<WordleGameScreen> {
                               decoration: BoxDecoration(
                                 color: bgColor,
                                 borderRadius: BorderRadius.circular(6),
-                                border: Border.all(color: AppColors.textBase.withOpacity(0.5)),
+                                border: Border.all(
+                                  color: AppColors.textBase.withOpacity(0.5),
+                                ),
                               ),
                               child: Center(
                                 child: Text(
                                   char.trim(),
                                   style: const TextStyle(
-                                      fontSize: 24, fontWeight: FontWeight.bold, letterSpacing: 1),
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 1,
+                                  ),
                                 ),
                               ),
                             );
@@ -211,11 +232,13 @@ class _WordleGameState extends State<WordleGameScreen> {
                     }),
                   ),
                   const SizedBox(height: 16),
-                    ElevatedButton(
-                        onPressed: _pickSolution,
-                        style: ElevatedButton.styleFrom(backgroundColor: AppColors.accentPeach),
-                        child: const Text('Restart'),
-                      ),
+                  ElevatedButton(
+                    onPressed: _pickSolution,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.accentPeach,
+                    ),
+                    child: const Text('Restart'),
+                  ),
                   // Keyboard
                   _Keyboard(onKeyTap: _onKeyTap),
                 ],
@@ -235,11 +258,7 @@ class _Keyboard extends StatelessWidget {
 
   const _Keyboard({required this.onKeyTap});
 
-  static const List<String> _rows = [
-    'QWERTYUIOP',
-    'ASDFGHJKL',
-    'ZXCVBNM',
-  ];
+  static const List<String> _rows = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM'];
 
   @override
   Widget build(BuildContext context) {
@@ -250,26 +269,27 @@ class _Keyboard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: row.split('').map((letter) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 3),
-                  child: SizedBox(
-                    width: 30,
-                    height: 40,
-                    child: ElevatedButton(
-                      onPressed: () => onKeyTap(letter),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary.shade100,
-                        padding: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
+              children:
+                  row.split('').map((letter) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 3),
+                      child: SizedBox(
+                        width: 30,
+                        height: 40,
+                        child: ElevatedButton(
+                          onPressed: () => onKeyTap(letter),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.primary.shade100,
+                            padding: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                          ),
+                          child: Text(letter),
                         ),
                       ),
-                      child: Text(letter),
-                    ),
-                  ),
-                );
-              }).toList(),
+                    );
+                  }).toList(),
             ),
           ),
         const SizedBox(height: 6),
@@ -280,8 +300,12 @@ class _Keyboard extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () => onKeyTap('ENTER'),
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.accentYellow.shade400,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12)),
+                  backgroundColor: AppColors.accentYellow.shade400,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
+                ),
                 child: const Text('Enter'),
               ),
             ),
@@ -290,13 +314,17 @@ class _Keyboard extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () => onKeyTap('DEL'),
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.accentPeach.shade400,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12)),
+                  backgroundColor: AppColors.accentPeach.shade400,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
+                ),
                 child: const Text('Delete'),
               ),
             ),
           ],
-        )
+        ),
       ],
     );
   }

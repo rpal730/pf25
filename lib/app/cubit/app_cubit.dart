@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:flutter_web_portfolio_2025/screens/restaurant_manager/model/user_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flutter_web_portfolio_2025/app/cubit/app_state.dart';
 import 'package:flutter_web_portfolio_2025/res/base_hydrated_cubit.dart';
@@ -7,10 +8,13 @@ import 'package:flutter_web_portfolio_2025/res/base_hydrated_cubit.dart';
 class AppCubit extends BaseHydratedCubit<AppState> {
   AppCubit() : super(const AppState());
 
-
   // Method to update the token
   void setToken(String value) {
     emit(state.copyWith(token: value));
+  }
+
+  void setUserData(UserModel data) {
+    emit(state.copyWith(userData: data));
   }
 
   // Handle serialization and deserialization
@@ -33,6 +37,4 @@ class AppCubit extends BaseHydratedCubit<AppState> {
       return null; // Return null if serialization fails
     }
   }
-
-  
 }

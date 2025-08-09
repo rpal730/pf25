@@ -32,7 +32,16 @@ final List<Project> allProjects = [
       'Added notifications to keep users engaged with real-time updates.',
       'Led daily client feedback sessions as the primary contact to ensure smooth project progression.',
     ],
-    skills: ['Flutter', 'Dart', 'flutter_bloc', 'Mapbox', 'Google Location API', 'In-app Purchases', 'Notifications', 'Client Communication'],
+    skills: [
+      'Flutter',
+      'Dart',
+      'flutter_bloc',
+      'Mapbox',
+      'Google Location API',
+      'In-app Purchases',
+      'Notifications',
+      'Client Communication',
+    ],
   ),
   Project(
     title: 'HSC (Stem Cell Collection Management System)',
@@ -43,7 +52,13 @@ final List<Project> allProjects = [
       'Implemented complex workflows with BLoC.',
       'Led daily stand-up calls with the client for feedback and alignment.',
     ],
-    skills: ['Flutter Web', 'Dart', 'flutter_bloc', 'Role Management', 'Client Communication'],
+    skills: [
+      'Flutter Web',
+      'Dart',
+      'flutter_bloc',
+      'Role Management',
+      'Client Communication',
+    ],
   ),
   Project(
     title: 'Treadstone Capital',
@@ -93,7 +108,12 @@ final List<Project> allProjects = [
       'Implemented notifications for call updates and user activity.',
       'Led client discussions for feature prioritization.',
     ],
-    skills: ['Agora SDK', 'Realtime Chat', 'Notifications', 'Client Collaboration'],
+    skills: [
+      'Agora SDK',
+      'Realtime Chat',
+      'Notifications',
+      'Client Collaboration',
+    ],
   ),
   Project(
     title: 'Fhunger',
@@ -106,7 +126,13 @@ final List<Project> allProjects = [
       'Customized Google Maps API for nearby store discovery with real-time backend data.',
       'Implemented real-time notification handling for order/status updates.',
     ],
-    skills: ['Flutter', 'Maps Integration', 'Notifications', 'Deployment', 'State Management'],
+    skills: [
+      'Flutter',
+      'Maps Integration',
+      'Notifications',
+      'Deployment',
+      'State Management',
+    ],
     note: 'BitsAtom Technologies',
   ),
   Project(

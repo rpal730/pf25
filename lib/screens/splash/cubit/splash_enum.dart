@@ -1,4 +1,1 @@
-enum SplashEnum {
-  unauthenticated,
-  authenticated
-}
+enum SplashEnum { unauthenticated, authenticated }

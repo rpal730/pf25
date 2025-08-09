@@ -17,7 +17,7 @@ class NetworkCheckerCubit extends Cubit<bool> {
   void startInternetCheck() async {
     bool isConnected = await hasInternetAccess();
     log("Internet Initial check: $isConnected");
-    emit(( isConnected));
+    emit((isConnected));
     if (isConnected) return;
 
     _timer = Timer.periodic(_interval, (timer) async {
@@ -45,9 +45,4 @@ class NetworkCheckerCubit extends Cubit<bool> {
       return false;
     }
   }
-
-
-
-
-  
 }
