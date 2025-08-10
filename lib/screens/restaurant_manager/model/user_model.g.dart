@@ -13,7 +13,7 @@ _UserModel _$UserModelFromJson(Map<String, dynamic> json) => _UserModel(
   username: json['username'] as String?,
   restaurantId: json['restaurant_id'] as String?,
   role: json['role'] as String?,
-  createdAt: json['created_at'] as String?,
+  createdAt: _timestampOrStringToIsoString(json['created_at']),
 );
 
 Map<String, dynamic> _$UserModelToJson(_UserModel instance) =>

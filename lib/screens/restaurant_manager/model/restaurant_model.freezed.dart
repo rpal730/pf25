@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RestaurantModel {
 
-@JsonKey(name: 'id') String? get id;@JsonKey(name: 'name') String? get name;@JsonKey(name: 'owned_by') String? get owner;@JsonKey(name: 'gstin') String? get gstin;@JsonKey(name: 'created_at') String? get createdAt;@JsonKey(name: 'upi_payment_id') List<String>? get upiPaymentId; List<MenuItemModel>? get menuItems; List<UserModel>? get staffMembers; List<OrderModel>? get orders;
+@JsonKey(name: 'id') String? get id;@JsonKey(name: 'name') String? get name;@JsonKey(name: 'owned_by') String? get owner;@JsonKey(name: 'gstin') String? get gstin;@JsonKey(name: 'created_at', fromJson: _timestampOrStringToIsoString) String? get createdAt;@JsonKey(name: 'upi_payment_id') List<String>? get upiPaymentId; List<MenuItemModel>? get menuItems; List<UserModel>? get staffMembers; List<OrderModel>? get orders;
 /// Create a copy of RestaurantModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $RestaurantModelCopyWith<$Res>  {
   factory $RestaurantModelCopyWith(RestaurantModel value, $Res Function(RestaurantModel) _then) = _$RestaurantModelCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'id') String? id,@JsonKey(name: 'name') String? name,@JsonKey(name: 'owned_by') String? owner,@JsonKey(name: 'gstin') String? gstin,@JsonKey(name: 'created_at') String? createdAt,@JsonKey(name: 'upi_payment_id') List<String>? upiPaymentId, List<MenuItemModel>? menuItems, List<UserModel>? staffMembers, List<OrderModel>? orders
+@JsonKey(name: 'id') String? id,@JsonKey(name: 'name') String? name,@JsonKey(name: 'owned_by') String? owner,@JsonKey(name: 'gstin') String? gstin,@JsonKey(name: 'created_at', fromJson: _timestampOrStringToIsoString) String? createdAt,@JsonKey(name: 'upi_payment_id') List<String>? upiPaymentId, List<MenuItemModel>? menuItems, List<UserModel>? staffMembers, List<OrderModel>? orders
 });
 
 
@@ -161,7 +161,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'owned_by')  String? owner, @JsonKey(name: 'gstin')  String? gstin, @JsonKey(name: 'created_at')  String? createdAt, @JsonKey(name: 'upi_payment_id')  List<String>? upiPaymentId,  List<MenuItemModel>? menuItems,  List<UserModel>? staffMembers,  List<OrderModel>? orders)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'owned_by')  String? owner, @JsonKey(name: 'gstin')  String? gstin, @JsonKey(name: 'created_at', fromJson: _timestampOrStringToIsoString)  String? createdAt, @JsonKey(name: 'upi_payment_id')  List<String>? upiPaymentId,  List<MenuItemModel>? menuItems,  List<UserModel>? staffMembers,  List<OrderModel>? orders)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RestaurantModel() when $default != null:
 return $default(_that.id,_that.name,_that.owner,_that.gstin,_that.createdAt,_that.upiPaymentId,_that.menuItems,_that.staffMembers,_that.orders);case _:
@@ -182,7 +182,7 @@ return $default(_that.id,_that.name,_that.owner,_that.gstin,_that.createdAt,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'owned_by')  String? owner, @JsonKey(name: 'gstin')  String? gstin, @JsonKey(name: 'created_at')  String? createdAt, @JsonKey(name: 'upi_payment_id')  List<String>? upiPaymentId,  List<MenuItemModel>? menuItems,  List<UserModel>? staffMembers,  List<OrderModel>? orders)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'owned_by')  String? owner, @JsonKey(name: 'gstin')  String? gstin, @JsonKey(name: 'created_at', fromJson: _timestampOrStringToIsoString)  String? createdAt, @JsonKey(name: 'upi_payment_id')  List<String>? upiPaymentId,  List<MenuItemModel>? menuItems,  List<UserModel>? staffMembers,  List<OrderModel>? orders)  $default,) {final _that = this;
 switch (_that) {
 case _RestaurantModel():
 return $default(_that.id,_that.name,_that.owner,_that.gstin,_that.createdAt,_that.upiPaymentId,_that.menuItems,_that.staffMembers,_that.orders);case _:
@@ -202,7 +202,7 @@ return $default(_that.id,_that.name,_that.owner,_that.gstin,_that.createdAt,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'owned_by')  String? owner, @JsonKey(name: 'gstin')  String? gstin, @JsonKey(name: 'created_at')  String? createdAt, @JsonKey(name: 'upi_payment_id')  List<String>? upiPaymentId,  List<MenuItemModel>? menuItems,  List<UserModel>? staffMembers,  List<OrderModel>? orders)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'owned_by')  String? owner, @JsonKey(name: 'gstin')  String? gstin, @JsonKey(name: 'created_at', fromJson: _timestampOrStringToIsoString)  String? createdAt, @JsonKey(name: 'upi_payment_id')  List<String>? upiPaymentId,  List<MenuItemModel>? menuItems,  List<UserModel>? staffMembers,  List<OrderModel>? orders)?  $default,) {final _that = this;
 switch (_that) {
 case _RestaurantModel() when $default != null:
 return $default(_that.id,_that.name,_that.owner,_that.gstin,_that.createdAt,_that.upiPaymentId,_that.menuItems,_that.staffMembers,_that.orders);case _:
@@ -217,14 +217,14 @@ return $default(_that.id,_that.name,_that.owner,_that.gstin,_that.createdAt,_tha
 @JsonSerializable()
 
 class _RestaurantModel extends RestaurantModel {
-  const _RestaurantModel({@JsonKey(name: 'id') this.id, @JsonKey(name: 'name') this.name, @JsonKey(name: 'owned_by') this.owner, @JsonKey(name: 'gstin') this.gstin, @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'upi_payment_id') final  List<String>? upiPaymentId, final  List<MenuItemModel>? menuItems, final  List<UserModel>? staffMembers, final  List<OrderModel>? orders}): _upiPaymentId = upiPaymentId,_menuItems = menuItems,_staffMembers = staffMembers,_orders = orders,super._();
+  const _RestaurantModel({@JsonKey(name: 'id') this.id, @JsonKey(name: 'name') this.name, @JsonKey(name: 'owned_by') this.owner, @JsonKey(name: 'gstin') this.gstin, @JsonKey(name: 'created_at', fromJson: _timestampOrStringToIsoString) this.createdAt, @JsonKey(name: 'upi_payment_id') final  List<String>? upiPaymentId, final  List<MenuItemModel>? menuItems, final  List<UserModel>? staffMembers, final  List<OrderModel>? orders}): _upiPaymentId = upiPaymentId,_menuItems = menuItems,_staffMembers = staffMembers,_orders = orders,super._();
   factory _RestaurantModel.fromJson(Map<String, dynamic> json) => _$RestaurantModelFromJson(json);
 
 @override@JsonKey(name: 'id') final  String? id;
 @override@JsonKey(name: 'name') final  String? name;
 @override@JsonKey(name: 'owned_by') final  String? owner;
 @override@JsonKey(name: 'gstin') final  String? gstin;
-@override@JsonKey(name: 'created_at') final  String? createdAt;
+@override@JsonKey(name: 'created_at', fromJson: _timestampOrStringToIsoString) final  String? createdAt;
  final  List<String>? _upiPaymentId;
 @override@JsonKey(name: 'upi_payment_id') List<String>? get upiPaymentId {
   final value = _upiPaymentId;
@@ -295,7 +295,7 @@ abstract mixin class _$RestaurantModelCopyWith<$Res> implements $RestaurantModel
   factory _$RestaurantModelCopyWith(_RestaurantModel value, $Res Function(_RestaurantModel) _then) = __$RestaurantModelCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'id') String? id,@JsonKey(name: 'name') String? name,@JsonKey(name: 'owned_by') String? owner,@JsonKey(name: 'gstin') String? gstin,@JsonKey(name: 'created_at') String? createdAt,@JsonKey(name: 'upi_payment_id') List<String>? upiPaymentId, List<MenuItemModel>? menuItems, List<UserModel>? staffMembers, List<OrderModel>? orders
+@JsonKey(name: 'id') String? id,@JsonKey(name: 'name') String? name,@JsonKey(name: 'owned_by') String? owner,@JsonKey(name: 'gstin') String? gstin,@JsonKey(name: 'created_at', fromJson: _timestampOrStringToIsoString) String? createdAt,@JsonKey(name: 'upi_payment_id') List<String>? upiPaymentId, List<MenuItemModel>? menuItems, List<UserModel>? staffMembers, List<OrderModel>? orders
 });
 
 

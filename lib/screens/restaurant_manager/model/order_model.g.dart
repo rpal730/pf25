@@ -14,7 +14,8 @@ _OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => _OrderModel(
   totalAmount: json['total_amount'] as String?,
   orderStatus: json['order_status'] as String?,
   items: _itemsFromJson(json['items'] as List?),
-  createdAt: json['created_at'] as String?,
+  createdAt: _timestampOrStringToIsoString(json['created_at']),
+  updatedAt: _timestampOrStringToIsoString(json['updated_at']),
 );
 
 Map<String, dynamic> _$OrderModelToJson(_OrderModel instance) =>
@@ -27,4 +28,5 @@ Map<String, dynamic> _$OrderModelToJson(_OrderModel instance) =>
       'order_status': instance.orderStatus,
       'items': _itemsToJson(instance.items),
       'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
     };

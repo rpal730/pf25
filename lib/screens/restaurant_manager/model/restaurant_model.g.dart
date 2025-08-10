@@ -12,7 +12,7 @@ _RestaurantModel _$RestaurantModelFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       owner: json['owned_by'] as String?,
       gstin: json['gstin'] as String?,
-      createdAt: json['created_at'] as String?,
+      createdAt: _timestampOrStringToIsoString(json['created_at']),
       upiPaymentId:
           (json['upi_payment_id'] as List<dynamic>?)
               ?.map((e) => e as String)

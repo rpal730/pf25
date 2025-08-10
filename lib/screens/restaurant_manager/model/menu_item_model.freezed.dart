@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MenuItemModel {
 
-@JsonKey(name: 'id') String? get id;@JsonKey(name: 'name') String? get name;@JsonKey(name: 'description') String? get description;@JsonKey(name: 'price') double? get price;@JsonKey(name: 'quantity') int? get quantity;@JsonKey(name: 'created_at') String? get createdAt;@JsonKey(name: 'available_units') int? get availableUnits;
+@JsonKey(name: 'id') String? get id;@JsonKey(name: 'name') String? get name;@JsonKey(name: 'description') String? get description;@JsonKey(name: 'price') double? get price;@JsonKey(name: 'quantity') int? get quantity;@JsonKey(name: 'created_at', fromJson: _timestampOrStringToIsoString) String? get createdAt;@JsonKey(name: 'available_units') int? get availableUnits;
 /// Create a copy of MenuItemModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $MenuItemModelCopyWith<$Res>  {
   factory $MenuItemModelCopyWith(MenuItemModel value, $Res Function(MenuItemModel) _then) = _$MenuItemModelCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'id') String? id,@JsonKey(name: 'name') String? name,@JsonKey(name: 'description') String? description,@JsonKey(name: 'price') double? price,@JsonKey(name: 'quantity') int? quantity,@JsonKey(name: 'created_at') String? createdAt,@JsonKey(name: 'available_units') int? availableUnits
+@JsonKey(name: 'id') String? id,@JsonKey(name: 'name') String? name,@JsonKey(name: 'description') String? description,@JsonKey(name: 'price') double? price,@JsonKey(name: 'quantity') int? quantity,@JsonKey(name: 'created_at', fromJson: _timestampOrStringToIsoString) String? createdAt,@JsonKey(name: 'available_units') int? availableUnits
 });
 
 
@@ -159,7 +159,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'description')  String? description, @JsonKey(name: 'price')  double? price, @JsonKey(name: 'quantity')  int? quantity, @JsonKey(name: 'created_at')  String? createdAt, @JsonKey(name: 'available_units')  int? availableUnits)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'description')  String? description, @JsonKey(name: 'price')  double? price, @JsonKey(name: 'quantity')  int? quantity, @JsonKey(name: 'created_at', fromJson: _timestampOrStringToIsoString)  String? createdAt, @JsonKey(name: 'available_units')  int? availableUnits)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MenuItemModel() when $default != null:
 return $default(_that.id,_that.name,_that.description,_that.price,_that.quantity,_that.createdAt,_that.availableUnits);case _:
@@ -180,7 +180,7 @@ return $default(_that.id,_that.name,_that.description,_that.price,_that.quantity
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'description')  String? description, @JsonKey(name: 'price')  double? price, @JsonKey(name: 'quantity')  int? quantity, @JsonKey(name: 'created_at')  String? createdAt, @JsonKey(name: 'available_units')  int? availableUnits)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'description')  String? description, @JsonKey(name: 'price')  double? price, @JsonKey(name: 'quantity')  int? quantity, @JsonKey(name: 'created_at', fromJson: _timestampOrStringToIsoString)  String? createdAt, @JsonKey(name: 'available_units')  int? availableUnits)  $default,) {final _that = this;
 switch (_that) {
 case _MenuItemModel():
 return $default(_that.id,_that.name,_that.description,_that.price,_that.quantity,_that.createdAt,_that.availableUnits);case _:
@@ -200,7 +200,7 @@ return $default(_that.id,_that.name,_that.description,_that.price,_that.quantity
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'description')  String? description, @JsonKey(name: 'price')  double? price, @JsonKey(name: 'quantity')  int? quantity, @JsonKey(name: 'created_at')  String? createdAt, @JsonKey(name: 'available_units')  int? availableUnits)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'id')  String? id, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'description')  String? description, @JsonKey(name: 'price')  double? price, @JsonKey(name: 'quantity')  int? quantity, @JsonKey(name: 'created_at', fromJson: _timestampOrStringToIsoString)  String? createdAt, @JsonKey(name: 'available_units')  int? availableUnits)?  $default,) {final _that = this;
 switch (_that) {
 case _MenuItemModel() when $default != null:
 return $default(_that.id,_that.name,_that.description,_that.price,_that.quantity,_that.createdAt,_that.availableUnits);case _:
@@ -215,7 +215,7 @@ return $default(_that.id,_that.name,_that.description,_that.price,_that.quantity
 @JsonSerializable()
 
 class _MenuItemModel extends MenuItemModel {
-  const _MenuItemModel({@JsonKey(name: 'id') this.id, @JsonKey(name: 'name') this.name, @JsonKey(name: 'description') this.description, @JsonKey(name: 'price') this.price, @JsonKey(name: 'quantity') this.quantity, @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'available_units') this.availableUnits}): super._();
+  const _MenuItemModel({@JsonKey(name: 'id') this.id, @JsonKey(name: 'name') this.name, @JsonKey(name: 'description') this.description, @JsonKey(name: 'price') this.price, @JsonKey(name: 'quantity') this.quantity, @JsonKey(name: 'created_at', fromJson: _timestampOrStringToIsoString) this.createdAt, @JsonKey(name: 'available_units') this.availableUnits}): super._();
   factory _MenuItemModel.fromJson(Map<String, dynamic> json) => _$MenuItemModelFromJson(json);
 
 @override@JsonKey(name: 'id') final  String? id;
@@ -223,7 +223,7 @@ class _MenuItemModel extends MenuItemModel {
 @override@JsonKey(name: 'description') final  String? description;
 @override@JsonKey(name: 'price') final  double? price;
 @override@JsonKey(name: 'quantity') final  int? quantity;
-@override@JsonKey(name: 'created_at') final  String? createdAt;
+@override@JsonKey(name: 'created_at', fromJson: _timestampOrStringToIsoString) final  String? createdAt;
 @override@JsonKey(name: 'available_units') final  int? availableUnits;
 
 /// Create a copy of MenuItemModel
@@ -259,7 +259,7 @@ abstract mixin class _$MenuItemModelCopyWith<$Res> implements $MenuItemModelCopy
   factory _$MenuItemModelCopyWith(_MenuItemModel value, $Res Function(_MenuItemModel) _then) = __$MenuItemModelCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'id') String? id,@JsonKey(name: 'name') String? name,@JsonKey(name: 'description') String? description,@JsonKey(name: 'price') double? price,@JsonKey(name: 'quantity') int? quantity,@JsonKey(name: 'created_at') String? createdAt,@JsonKey(name: 'available_units') int? availableUnits
+@JsonKey(name: 'id') String? id,@JsonKey(name: 'name') String? name,@JsonKey(name: 'description') String? description,@JsonKey(name: 'price') double? price,@JsonKey(name: 'quantity') int? quantity,@JsonKey(name: 'created_at', fromJson: _timestampOrStringToIsoString) String? createdAt,@JsonKey(name: 'available_units') int? availableUnits
 });
 
 

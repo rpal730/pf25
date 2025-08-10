@@ -14,7 +14,7 @@ class AppCubit extends BaseHydratedCubit<AppState> {
   }
 
   void setUserData(UserModel data) {
-    emit(state.copyWith(userData: data));
+    emit(state.copyWith(userData: data!.copyWith(createdAt: null)));
   }
 
   // Handle serialization and deserialization

@@ -42,7 +42,7 @@ Future<void> showAddOrderDialog({
     return total;
   }
 
-  final List<String> paymentOptions = ['Cash', 'Card', 'UPI'];
+  final List<String> paymentOptions = ['Cash', 'UPI'];
   String selectedPaymentMode = 'Cash'; // default selection
 
   final searchController = TextEditingController();
@@ -298,42 +298,50 @@ Future<void> showAddOrderDialog({
                           },
                         ).toString();
 
-                    // Show QR code in dialog
-                    await showAppDialog(
-                      context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text('Scan to Pay'),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Text('Pay with UPI'),
-                              const SizedBox(height: 10),
-                              QrImageView(data: upiUri, size: 200),
-                              const SizedBox(height: 10),
-                              Text(
-                                'Amount: ₹${calculateTotal().toStringAsFixed(2)}',
-                              ),
-                              Text('UPI ID: $selectedUpiId'),
-                            ],
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                onOrderSubmit(
-                                  order,
-                                ); // Save order only after showing QR
-                                Navigator.of(context).pop(); // Close QR dialog
-                                Navigator.of(
-                                  context,
-                                ).pop(); // Close main dialog
-                              },
-                              child: const Text('Done'),
+                    if (selectedPaymentMode == 'UPI') {
+                      await showAppDialog(
+                        context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text('Scan to Pay'),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Text('Pay with UPI'),
+                                const SizedBox(height: 10),
+                                QrImageView(data: upiUri, size: 200),
+                                const SizedBox(height: 10),
+                                Text(
+                                  'Amount: ₹${calculateTotal().toStringAsFixed(2)}',
+                                ),
+                                Text('UPI ID: $selectedUpiId'),
+                              ],
                             ),
-                          ],
-                        );
-                      },
-                    );
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  onOrderSubmit(
+                                    order,
+                                  ); // Save order only after showing QR
+                                  Navigator.of(
+                                    context,
+                                  ).pop(); // Close QR dialog
+                                  Navigator.of(
+                                    context,
+                                  ).pop(); // Close main dialog
+                                },
+                                child: const Text('Done'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      onOrderSubmit(order); //
+                      Navigator.of(context).pop(); // Close main dialog
+                    }
+
+                    // Show QR code in dialog
                   },
                   child: const Text('Place Order'),
                 ),

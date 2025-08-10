@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
@@ -29,7 +30,6 @@ class RestaurantManagerCubit extends HydratedCubit<RestaurantManagerState> {
   TextEditingController upiIdController = TextEditingController();
 
   setLoadersToInit() {
-    
     emit(state.copyWith(fetchingRestaurantDetails: false, isLoading: false));
   }
 
@@ -37,7 +37,9 @@ class RestaurantManagerCubit extends HydratedCubit<RestaurantManagerState> {
     emit(state.copyWith(restaurantId: value));
     await fetchRestaurantDetails();
     await fetchAllMenuItems();
-    await fetchAllOrders();
+    // await fetchAllOrders();
+    await fetchTodayOrders();
+    listenToOrders();
   }
 
   addMenuItemLocally(MenuItemModel menuItem) {
@@ -50,12 +52,28 @@ class RestaurantManagerCubit extends HydratedCubit<RestaurantManagerState> {
     );
   }
 
-  addOrderLocally(OrderModel order) {
+  addOrderLocally(OrderModel order, {bool editOnly = false}) {
+    final currentOrders = state.restaurantData?.orders ?? [];
+
+    List<OrderModel> updatedOrders;
+
+    if (editOnly) {
+      // Replace the existing order with the updated one
+      updatedOrders =
+          currentOrders.map((o) {
+            if (o.id == order.id) {
+              return order; // updated order
+            }
+            return o;
+          }).toList();
+    } else {
+      // Add as new
+      updatedOrders = [order, ...currentOrders];
+    }
+
     emit(
       state.copyWith(
-        restaurantData: state.restaurantData!.copyWith(
-          orders: [...state.restaurantData?.orders ?? [], order],
-        ),
+        restaurantData: state.restaurantData!.copyWith(orders: updatedOrders),
       ),
     );
   }
@@ -175,6 +193,87 @@ class RestaurantManagerCubit extends HydratedCubit<RestaurantManagerState> {
     );
   }
 
+  Future<void> fetchTodayOrders() async {
+    final now = DateTime.now();
+
+    // Get start of the day (00:00:00)
+    final startOfDay = DateTime(now.year, now.month, now.day);
+
+    // Get end of the day (23:59:59.999)
+    final endOfDay = DateTime(now.year, now.month, now.day, 23, 59, 59, 999);
+
+    final todayOrdersSnapshot =
+        await FirebaseFirestore.instance
+            .collection('restaurants')
+            .doc(state.restaurantId)
+            .collection('orders')
+            .where(
+              'created_at',
+              isGreaterThanOrEqualTo: Timestamp.fromDate(startOfDay),
+            )
+            .where(
+              'created_at',
+              isLessThanOrEqualTo: Timestamp.fromDate(endOfDay),
+            )
+            .orderBy('created_at', descending: true)
+            .get();
+
+    final orders =
+        todayOrdersSnapshot.docs
+            .map((e) => OrderModel.fromJson(e.data()))
+            .toList();
+
+    emit(
+      state.copyWith(
+        restaurantData: state.restaurantData?.copyWith(orders: orders),
+      ),
+    );
+  }
+
+  List<OrderModel> addOrUpdateOrders(
+    List<OrderModel> newItems, {
+    bool areLatestOrders = false,
+  }) {
+    final existingItems = state.restaurantData?.orders ?? [];
+
+    // Map existing by ID for quick replacement
+    final orderMap = {for (var e in existingItems) e.id: e};
+
+    // Replace or add
+    for (final item in newItems) {
+      if (item.id != null) {
+        orderMap[item.id!] = item;
+      }
+    }
+
+    return orderMap.values.toList();
+  }
+
+  StreamSubscription? _ordersStreamSub;
+
+  void listenToOrders() {
+    log("listenToMessages called");
+    _ordersStreamSub?.cancel(); // cancel previous if any
+
+    _ordersStreamSub = getIt<AppRepository>()
+        .streamOrders(restaurantId: state?.restaurantId ?? "")
+        .listen((incomingOrders) {
+          log("📨 Incoming orders: ${incomingOrders}");
+          final updated = addOrUpdateOrders(
+            incomingOrders,
+            areLatestOrders: true,
+          );
+
+          log("📨 Real-time messages received: ${incomingOrders.length}");
+
+          emit(
+            state.copyWith(
+              restaurantData: state.restaurantData?.copyWith(orders: updated),
+            ),
+          );
+        });
+  }
+
   showRestaurantSignInForm(bool? value) {
     emit(state.copyWith(showSignInForm: value));
   }
@@ -219,16 +318,16 @@ class RestaurantManagerCubit extends HydratedCubit<RestaurantManagerState> {
 
       // ✅ Save session locally
       getIt<AppCubit>().setUserData(
-        UserModel.fromJson(data!).copyWith(id: snapshot.id),
+        UserModel.fromJson(data!).copyWith(id: snapshot.id, createdAt: null),
       );
       _showSuccess(context, 'Login successful! Welcome, ${data['name']}');
 
       context.router.push(RestaurantDashboardRoute(id: data['restaurant_id']));
 
       print('✅ Login successful');
-    } catch (e) {
+    } catch (e, s) {
       emit(state.copyWith(isLoading: false));
-      print('❌ Login failed: $e');
+      print('❌ Login failed: $e , $s');
     } finally {
       emit(state.copyWith(isLoading: false));
     }
@@ -298,7 +397,7 @@ class RestaurantManagerCubit extends HydratedCubit<RestaurantManagerState> {
 
       // === CONTINUE SIGNUP ===
 
-      final createdAt = DateTime.now().toIso8601String();
+      final createdAt = FieldValue.serverTimestamp();
       final String hashedPassword = PasswordHelper.hashPassword(password);
 
       final restaurantDocRef =
@@ -346,7 +445,10 @@ class RestaurantManagerCubit extends HydratedCubit<RestaurantManagerState> {
     addStaffMemberLocally(userModel);
     final userWithId = userModel;
 
-    final userJson = userWithId.toJson();
+    final userJson = {
+      ...userWithId.toJson(),
+      'created_at': FieldValue.serverTimestamp(),
+    };
 
     final restaurantStaffRef = FirebaseFirestore.instance
         .collection('restaurants')
@@ -374,11 +476,14 @@ class RestaurantManagerCubit extends HydratedCubit<RestaurantManagerState> {
         .collection('menu')
         .doc(menuModel.id);
 
-    await restaurantMenuRef.set(menuModel.toJson());
+    await restaurantMenuRef.set({
+      ...menuModel.toJson(),
+      'created_at': FieldValue.serverTimestamp(),
+    });
   }
 
   Future<void> addOrderToRestaurant(OrderModel orderModel) async {
-    addOrderLocally(orderModel);
+    // addOrderLocally(orderModel);
     final restaurantOrdersRef = FirebaseFirestore.instance
         .collection('restaurants')
         .doc(state.restaurantId)
@@ -386,9 +491,27 @@ class RestaurantManagerCubit extends HydratedCubit<RestaurantManagerState> {
         .doc(orderModel.id);
 
     print('Order ID: ${orderModel.id}');
-    print('Order JSON: ${orderModel.toJson()}');
 
-    await restaurantOrdersRef.set(orderModel.toJson());
+    await restaurantOrdersRef.set({
+      ...orderModel.toJson(),
+      'created_at': FieldValue.serverTimestamp(),
+    });
+  }
+
+  Future<void> updateOrder(OrderModel orderModel) async {
+    // addOrderLocally(orderModel, editOnly: true);
+    final restaurantOrdersRef = FirebaseFirestore.instance
+        .collection('restaurants')
+        .doc(state.restaurantId)
+        .collection('orders')
+        .doc(orderModel.id);
+
+    print('Order ID: ${orderModel.id}');
+
+    await restaurantOrdersRef.update({
+      ...orderModel.toJson()..remove('created_at'),
+      'updated_at': FieldValue.serverTimestamp(),
+    });
   }
 
   void _showError(BuildContext context, String message) {
@@ -413,6 +536,11 @@ class RestaurantManagerCubit extends HydratedCubit<RestaurantManagerState> {
     );
   }
 
+  @override
+  Future<void> close() {
+    _ordersStreamSub?.cancel();
+    return super.close();
+  }
   @override
   RestaurantManagerState? fromJson(Map<String, dynamic> json) {
     return RestaurantManagerState.fromJson(json);

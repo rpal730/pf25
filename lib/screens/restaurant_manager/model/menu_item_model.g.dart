@@ -13,7 +13,7 @@ _MenuItemModel _$MenuItemModelFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
       price: (json['price'] as num?)?.toDouble(),
       quantity: (json['quantity'] as num?)?.toInt(),
-      createdAt: json['created_at'] as String?,
+      createdAt: _timestampOrStringToIsoString(json['created_at']),
       availableUnits: (json['available_units'] as num?)?.toInt(),
     );
 

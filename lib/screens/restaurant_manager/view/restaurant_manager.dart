@@ -18,14 +18,7 @@ class RestaurantManagerScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => RestaurantManagerCubit()..setLoadersToInit(),
       child: BlocBuilder<RestaurantManagerCubit, RestaurantManagerState>(
-      
-
-
-
         builder: (context, state) {
-
-
-          
           return Scaffold(
             backgroundColor: AppColors.accentYellow,
             appBar: AppBar(
@@ -203,11 +196,9 @@ class RestaurantManagerSignUpForm extends StatelessWidget {
           ),
           SizedBox(height: 12),
 
-           TextField(
+          TextField(
             controller: context.read<RestaurantManagerCubit>().upiIdController,
-            decoration: InputDecoration(
-              hintText: 'Enter UPI ID for payments',
-            ),
+            decoration: InputDecoration(hintText: 'Enter UPI ID for payments'),
           ),
 
           SizedBox(height: 12),
