@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_portfolio_2025/res/theme/app_colors.dart';
 import 'package:flutter_web_portfolio_2025/screens/restaurant_manager/model/order_model.dart';
 
 Future<void> showEditOrderDialog({
@@ -23,6 +25,7 @@ Future<void> showEditOrderDialog({
       return StatefulBuilder(
         builder: (context, setState) {
           return AlertDialog(
+            backgroundColor: AppColors.accentYellow,
             title: const Text('Edit Order Status'),
             content: SingleChildScrollView(
               child: Column(
@@ -77,7 +80,7 @@ Future<void> showEditOrderDialog({
                 onPressed: () {
                   final updatedOrder = order.copyWith(
                     orderStatus: selectedStatus,
-                    updatedAt: DateTime.now().toIso8601String(),
+                   
                   );
                   onOrderUpdate(updatedOrder);
                   Navigator.pop(context);

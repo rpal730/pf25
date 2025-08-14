@@ -38,7 +38,7 @@ class AppRepository {
 
   Stream<List<OrderModel>> streamOrders({
     required String restaurantId,
-    int limit = 1,
+    int limit = 3,
   }) {
     final firestore = FirebaseFirestore.instance;
 

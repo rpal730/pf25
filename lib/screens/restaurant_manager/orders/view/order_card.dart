@@ -4,8 +4,9 @@ import 'package:intl/intl.dart';
 
 class OrderCard extends StatelessWidget {
   final OrderModel order;
+  final int? index;
 
-  const OrderCard({super.key, required this.order});
+  const OrderCard({super.key, required this.order, this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class OrderCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            order.customerName ?? 'Unknown Customer',
+            '${((index ?? 0) + 1)}. ${order.customerName ?? 'Unknown Customer'}',
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
           const SizedBox(height: 4),

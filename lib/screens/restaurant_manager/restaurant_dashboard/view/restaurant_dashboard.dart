@@ -7,10 +7,11 @@ import 'package:flutter_web_portfolio_2025/res/theme/app_colors.dart';
 import 'package:flutter_web_portfolio_2025/res/ui_helper.dart';
 import 'package:flutter_web_portfolio_2025/screens/restaurant_manager/cubit/restaurant_manager_cubit.dart';
 import 'package:flutter_web_portfolio_2025/screens/restaurant_manager/cubit/restaurant_manager_state.dart';
+import 'package:flutter_web_portfolio_2025/screens/restaurant_manager/orders/cubit/orders_section_cubit.dart';
 import 'package:flutter_web_portfolio_2025/screens/restaurant_manager/restaurant_dashboard/view/components/add_menu_dialog.dart';
 import 'package:flutter_web_portfolio_2025/screens/restaurant_manager/restaurant_dashboard/view/components/add_order_dialog.dart';
 import 'package:flutter_web_portfolio_2025/screens/restaurant_manager/restaurant_dashboard/view/components/add_staff_dialog.dart';
-import 'package:flutter_web_portfolio_2025/screens/restaurant_manager/restaurant_dashboard/view/components/orders_section.dart';
+import 'package:flutter_web_portfolio_2025/screens/restaurant_manager/orders/view/orders_section.dart';
 
 @RoutePage()
 class RestaurantDashboardScreen extends StatelessWidget {
@@ -134,7 +135,16 @@ class RestaurantDashboardScreen extends StatelessWidget {
 
                                   SizedBox(height: 12),
 
-                                  OrdersSection(),
+                                  Expanded(
+                                    child: BlocProvider(
+                                      create:
+                                          (context) => OrdersCubit(
+                                            restaurantId:
+                                                state.restaurantId ?? '',
+                                          )..fetchInitialOrders()..listenToNewOrders(),
+                                      child: OrdersSection(),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),

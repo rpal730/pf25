@@ -12,6 +12,7 @@ import 'package:flutter_web_portfolio_2025/network/app_repository.dart';
 import 'package:flutter_web_portfolio_2025/network/firestore_service.dart';
 import 'package:flutter_web_portfolio_2025/res/password_helper.dart';
 import 'package:flutter_web_portfolio_2025/res/ui_helper.dart';
+import 'package:flutter_web_portfolio_2025/screens/common/notification_sound.dart';
 import 'package:flutter_web_portfolio_2025/screens/restaurant_manager/cubit/restaurant_manager_state.dart';
 import 'package:flutter_web_portfolio_2025/screens/restaurant_manager/model/menu_item_model.dart';
 import 'package:flutter_web_portfolio_2025/screens/restaurant_manager/model/order_model.dart';
@@ -38,8 +39,8 @@ class RestaurantManagerCubit extends HydratedCubit<RestaurantManagerState> {
     await fetchRestaurantDetails();
     await fetchAllMenuItems();
     // await fetchAllOrders();
-    await fetchTodayOrders();
-    listenToOrders();
+    // await fetchTodayOrders();
+    // listenToOrders();
   }
 
   addMenuItemLocally(MenuItemModel menuItem) {
@@ -239,40 +240,54 @@ class RestaurantManagerCubit extends HydratedCubit<RestaurantManagerState> {
     // Map existing by ID for quick replacement
     final orderMap = {for (var e in existingItems) e.id: e};
 
-    // Replace or add
+    // Replace or add new items
     for (final item in newItems) {
       if (item.id != null) {
         orderMap[item.id!] = item;
       }
     }
 
-    return orderMap.values.toList();
+    // Sort by created_at descending
+    final sortedList =
+        orderMap.values.toList()..sort((a, b) {
+          final dateA =
+              DateTime.tryParse(a.createdAt ?? '') ??
+              DateTime.fromMillisecondsSinceEpoch(0);
+          final dateB =
+              DateTime.tryParse(b.createdAt ?? '') ??
+              DateTime.fromMillisecondsSinceEpoch(0);
+          return dateB.compareTo(dateA); // newest first
+        });
+
+    return sortedList;
   }
 
   StreamSubscription? _ordersStreamSub;
 
-  void listenToOrders() {
-    log("listenToMessages called");
-    _ordersStreamSub?.cancel(); // cancel previous if any
+  // void listenToOrders() {
+  //   log("listenToMessages called");
+  //   _ordersStreamSub?.cancel(); // cancel previous if any
 
-    _ordersStreamSub = getIt<AppRepository>()
-        .streamOrders(restaurantId: state?.restaurantId ?? "")
-        .listen((incomingOrders) {
-          log("📨 Incoming orders: ${incomingOrders}");
-          final updated = addOrUpdateOrders(
-            incomingOrders,
-            areLatestOrders: true,
-          );
+  //   _ordersStreamSub = getIt<AppRepository>()
+  //       .streamOrders(restaurantId: state.restaurantId ?? "")
+  //       .listen((incomingOrders) {
+  //         log("📨 Incoming orders: ${incomingOrders.length}");
+  //         final updated = addOrUpdateOrders(
+  //           incomingOrders,
+  //           areLatestOrders: true,
+  //         );
 
-          log("📨 Real-time messages received: ${incomingOrders.length}");
-
-          emit(
-            state.copyWith(
-              restaurantData: state.restaurantData?.copyWith(orders: updated),
-            ),
-          );
-        });
-  }
+  //         log("📨 Real-time messages received: ${incomingOrders.length}");
+  //         if (incomingOrders.isNotEmpty) {
+  //           playNotificationSound();
+  //         }
+  //         emit(
+  //           state.copyWith(
+  //             restaurantData: state.restaurantData?.copyWith(orders: updated),
+  //           ),
+  //         );
+  //       });
+  // }
 
   showRestaurantSignInForm(bool? value) {
     emit(state.copyWith(showSignInForm: value));
@@ -498,22 +513,6 @@ class RestaurantManagerCubit extends HydratedCubit<RestaurantManagerState> {
     });
   }
 
-  Future<void> updateOrder(OrderModel orderModel) async {
-    // addOrderLocally(orderModel, editOnly: true);
-    final restaurantOrdersRef = FirebaseFirestore.instance
-        .collection('restaurants')
-        .doc(state.restaurantId)
-        .collection('orders')
-        .doc(orderModel.id);
-
-    print('Order ID: ${orderModel.id}');
-
-    await restaurantOrdersRef.update({
-      ...orderModel.toJson()..remove('created_at'),
-      'updated_at': FieldValue.serverTimestamp(),
-    });
-  }
-
   void _showError(BuildContext context, String message) {
     emit(state.copyWith(isLoading: false));
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -538,9 +537,11 @@ class RestaurantManagerCubit extends HydratedCubit<RestaurantManagerState> {
 
   @override
   Future<void> close() {
+    log("Closing $runtimeType and cleaning up resources.");
     _ordersStreamSub?.cancel();
     return super.close();
   }
+
   @override
   RestaurantManagerState? fromJson(Map<String, dynamic> json) {
     return RestaurantManagerState.fromJson(json);
