@@ -10,7 +10,8 @@ class OrdersCubit extends Cubit<OrdersSectionState> {
   OrdersCubit({required this.restaurantId}) : super(const OrdersSectionState());
 
   final String restaurantId;
-  StreamSubscription<List<OrderModel>>? _ordersStreamSub;
+  // StreamSubscription<List<OrderModel>>? _ordersStreamSub;
+  StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? _ordersStreamSub;
   DocumentSnapshot? _lastFetchedDoc;
   ScrollController? scrollController;
   BuildContext? context; // to show snackbars
@@ -188,49 +189,50 @@ class OrdersCubit extends Cubit<OrdersSectionState> {
 
   void listenToNewOrders() {
     log("listenToNewOrders called");
-
-    // Cancel previous subscription if any
     _ordersStreamSub?.cancel();
 
-    _ordersStreamSub = _streamLatestOrders().listen((latestDocs) {
-      if (latestDocs.isEmpty) return;
-      log("New order: ${latestDocs.length}");
-      final latestOrder = latestDocs.first;
+    _ordersStreamSub = _streamAllOrders().listen((snapshot) {
+      var updated = List<OrderModel>.from(state.orders ?? []);
 
-      final existingOrders = state.orders ?? [];
-      final alreadyExists = existingOrders.any((o) => o.id == latestOrder.id);
+      log("New orders: ${snapshot.docChanges.length}");
 
-      if (!alreadyExists) {
-        final updatedOrders = addUniqueOrders([latestOrder], prepend: true);
-        emit(state.copyWith(orders: updatedOrders));
-      } else {
-        log("Updating order data (already exists)");
-        final updatedOrders =
-            existingOrders.map((order) {
-              return order.id == latestOrder.id ? latestOrder : order;
-            }).toList();
-        emit(state.copyWith(orders: updatedOrders));
+      for (final change in snapshot.docChanges) {
+        final data = change.doc.data();
+        if (data == null) continue;
+
+        final incoming = OrderModel.fromJson(
+          data,
+        ).copyWith(snapshot: change.doc, id: change.doc.id);
+
+        switch (change.type) {
+          case DocumentChangeType.added:
+            if (!updated.any((o) => o.id == incoming.id)) {
+              // newest first (created_at desc)
+              updated.insert(0, incoming);
+            }
+            break;
+          case DocumentChangeType.modified:
+            final i = updated.indexWhere((o) => o.id == incoming.id);
+            if (i != -1) updated[i] = incoming;
+            break;
+          case DocumentChangeType.removed:
+            updated.removeWhere((o) => o.id == incoming.id);
+            break;
+        }
       }
+
+      emit(state.copyWith(orders: updated));
     });
   }
 
-  /// Real-time stream of the single newest order
-  Stream<List<OrderModel>> _streamLatestOrders() {
+  /// Stream all orders; Firestore will only send changed docs in docChanges.
+  Stream<QuerySnapshot<Map<String, dynamic>>> _streamAllOrders() {
     return FirebaseFirestore.instance
         .collection('restaurants')
         .doc(restaurantId)
         .collection('orders')
-        .orderBy('created_at', descending: true)
-        .orderBy(FieldPath.documentId, descending: true) // tie-breaker
-        .limit(1)
-        .snapshots()
-        .map((snapshot) {
-          return snapshot.docs.map((doc) {
-            return OrderModel.fromJson(
-              doc.data(),
-            ).copyWith(snapshot: doc, id: doc.id);
-          }).toList();
-        });
+        .orderBy('created_at')
+        .snapshots();
   }
 
   @override

@@ -141,7 +141,7 @@ class RestaurantDashboardScreen extends StatelessWidget {
                                           (context) => OrdersCubit(
                                             restaurantId:
                                                 state.restaurantId ?? '',
-                                          )..fetchInitialOrders()..listenToNewOrders(),
+                                          )..listenToNewOrders(),
                                       child: OrdersSection(),
                                     ),
                                   ),
