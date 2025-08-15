@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_web_portfolio_2025/screens/common/notification_sound.dart';
 import 'package:flutter_web_portfolio_2025/screens/restaurant_manager/model/order_model.dart';
 import 'orders_section_state.dart';
 
@@ -186,45 +187,55 @@ class OrdersCubit extends Cubit<OrdersSectionState> {
       'updated_at': FieldValue.serverTimestamp(),
     });
   }
+bool _initialSnapshotHandled = false;
 
-  void listenToNewOrders() {
-    log("listenToNewOrders called");
-    _ordersStreamSub?.cancel();
+void listenToNewOrders() {
+  log("listenToNewOrders called");
+  _ordersStreamSub?.cancel();
+  _initialSnapshotHandled = false;
 
-    _ordersStreamSub = _streamAllOrders().listen((snapshot) {
-      var updated = List<OrderModel>.from(state.orders ?? []);
+  _ordersStreamSub = _streamAllOrders().listen((snapshot) {
+    var updated = List<OrderModel>.from(state.orders ?? []);
 
-      log("New orders: ${snapshot.docChanges.length}");
+    log("Doc changes: ${snapshot.docChanges.length}");
 
-      for (final change in snapshot.docChanges) {
-        final data = change.doc.data();
-        if (data == null) continue;
+    for (final change in snapshot.docChanges) {
+      final data = change.doc.data();
+      if (data == null) continue;
 
-        final incoming = OrderModel.fromJson(
-          data,
-        ).copyWith(snapshot: change.doc, id: change.doc.id);
+      final incoming = OrderModel.fromJson(data)
+          .copyWith(snapshot: change.doc, id: change.doc.id);
 
-        switch (change.type) {
-          case DocumentChangeType.added:
-            if (!updated.any((o) => o.id == incoming.id)) {
-              // newest first (created_at desc)
-              updated.insert(0, incoming);
+      switch (change.type) {
+        case DocumentChangeType.added:
+          if (!updated.any((o) => o.id == incoming.id)) {
+            // Play sound only if this isn't the initial load
+            if (_initialSnapshotHandled) {
+              playNotificationSound();
             }
-            break;
-          case DocumentChangeType.modified:
-            final i = updated.indexWhere((o) => o.id == incoming.id);
-            if (i != -1) updated[i] = incoming;
-            break;
-          case DocumentChangeType.removed:
-            updated.removeWhere((o) => o.id == incoming.id);
-            break;
-        }
+            updated.insert(0, incoming);
+          }
+          break;
+
+        case DocumentChangeType.modified:
+          final i = updated.indexWhere((o) => o.id == incoming.id);
+          if (i != -1) updated[i] = incoming;
+          break;
+
+        case DocumentChangeType.removed:
+          updated.removeWhere((o) => o.id == incoming.id);
+          break;
       }
+    }
 
-      emit(state.copyWith(orders: updated));
-    });
-  }
+    emit(state.copyWith(orders: updated));
 
+    // Mark that the initial batch is processed after the first snapshot
+    if (!_initialSnapshotHandled) {
+      _initialSnapshotHandled = true;
+    }
+  });
+}
   /// Stream all orders; Firestore will only send changed docs in docChanges.
   Stream<QuerySnapshot<Map<String, dynamic>>> _streamAllOrders() {
     return FirebaseFirestore.instance
