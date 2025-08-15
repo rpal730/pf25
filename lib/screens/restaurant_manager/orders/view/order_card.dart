@@ -16,21 +16,37 @@ class OrderCard extends StatelessWidget {
 
     // Determine color based on order age
     Color backgroundColor;
-    if (duration == null) {
-      backgroundColor = Colors.grey.shade200;
-    } else if (duration.inMinutes > 10) {
-      backgroundColor = Colors.red.shade100;
-    } else if (duration.inMinutes > 5) {
-      backgroundColor = Colors.orange.shade100;
-    } else {
-      backgroundColor = Colors.green.shade100;
-    }
+
+    // if (duration == null) {
+    //   backgroundColor = Colors.grey.shade200;
+    // } else if (duration.inMinutes > 10) {
+    //   backgroundColor = Colors.red.shade100;
+    // } else if (duration.inMinutes > 5) {
+    //   backgroundColor = Colors.orange.shade100;
+    // } else {
+    //   backgroundColor = Colors.green.shade100;
+    // }
 
     return Container(
       // width: 10,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: backgroundColor,
+        color: () {
+          switch (order.orderStatus) {
+            case 'pending': // Pending
+              return Colors.grey;
+            case 'preparing': // Preparing
+              return Colors.orange;
+            case 'ready': // Ready for Pickup
+              return Colors.purple;
+            case 'completed': // Completed
+              return Colors.green;
+            case 'cancelled': // Cancelled
+              return Colors.red;
+            default: // Fallback
+              return Colors.blue;
+          }
+        }(),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.grey.shade300),
         boxShadow: [
@@ -62,15 +78,7 @@ class OrderCard extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               'Placed ${duration!.inMinutes} minutes ago',
-              style: TextStyle(
-                fontSize: 13,
-                color:
-                    duration.inMinutes > 10
-                        ? Colors.red
-                        : duration.inMinutes > 5
-                        ? Colors.orange
-                        : Colors.green,
-              ),
+              style: TextStyle(fontSize: 13, color: Colors.white),
             ),
           ],
         ],
