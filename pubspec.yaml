@@ -37,6 +37,8 @@ dependencies:
   uuid: ^4.5.1
   qr_flutter: ^4.1.0
   web: ^1.1.1
+  flutter_web_plugins:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:

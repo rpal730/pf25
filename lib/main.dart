@@ -5,6 +5,8 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart'; // safe to keep; won't be used on web
 import 'package:flutter_web_portfolio_2025/app/view/app.dart';
 import 'package:flutter_web_portfolio_2025/config/app_injection.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +38,7 @@ Future<void> main() async {
   HydratedBloc.storage = storage;
 
   configureInjection();
+   usePathUrlStrategy();
 
   runApp(MyApp());
 }
