@@ -47,6 +47,7 @@ class AppRouter extends RootStackRouter {
     ),
     CustomRoute(
       page: RestaurantManagerRoute.page,
+      path: '/restaurant-manager',
       transitionsBuilder: TransitionsBuilders.noTransition,
     ),
     CustomRoute(
