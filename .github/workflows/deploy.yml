@@ -23,27 +23,49 @@ jobs:
         with:
           flutter-version: '3.29.0'
           cache: true
-      
+
       - name: Enable web support
         run: flutter config --enable-web
 
       - name: Get dependencies
         run: flutter pub get
 
-      # Build Flutter web with correct base-href
       - name: Build Flutter Web
         run: flutter build web --release --base-href /prototype/portfolio/
+
+      - name: Fix base href for GitHub Pages (subpath)
+        run: |
+          sed -i 's|<base href=\"/\">|<base href=\"/prototype/portfolio/\">|g' build/web/index.html
+
+      - name: Add CNAME (optional)
+        run: echo 'vyakran.com' > build/web/CNAME
 
       - name: Prepare publish directory
         run: |
           # Prevent Jekyll processing
           touch build/web/.nojekyll
-          # Add fallback for SPA refresh
-          cp build/web/index.html build/web/404.html
-          # (Optional) Add CNAME only if you want vyakran.com root handling
-          echo 'vyakran.com' > build/web/CNAME
+          
+          # Create a smarter 404.html for deep link redirects
+          cat << 'EOF' > build/web/404.html
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta charset="utf-8">
+              <title>Redirecting...</title>
+              <script type="text/javascript">
+                // Store the requested path without the subfolder prefix
+                var redirect = window.location.pathname.replace('/prototype/portfolio', '');
+                sessionStorage.setItem('redirect', redirect);
+                // Redirect to root of Flutter app
+                window.location.href = '/prototype/portfolio/';
+              </script>
+            </head>
+            <body>
+              Redirecting...
+            </body>
+          </html>
+          EOF
 
-      # Deploy only to the subdirectory prototype/portfolio
       - name: Deploy to gh-pages/prototype/portfolio
         uses: peaceiris/actions-gh-pages@v4
         with:
