@@ -1,8 +1,8 @@
 name: flutter_web_portfolio_2025
-description: "A new Flutter project."
+description: "Vyakran - Just another digital footprint"
 publish_to: 'none' 
 
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ^3.7.0
