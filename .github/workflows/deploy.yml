@@ -29,10 +29,14 @@ jobs:
 
       - name: Get dependencies
         run: flutter pub get
-
+     
       # Build Flutter web with correct base-href
       - name: Build Flutter Web
         run: flutter build web --release --base-href /prototype/portfolio/
+
+      - name: Fix base href for GitHub Pages (subpath)
+        run: |
+          sed -i 's|<base href=\"/\">|<base href=\"/prototype/portfolio/\">|g' build/web/index.html
 
       - name: Add CNAME (root-level only, so add separately later if needed)
         run: echo 'vyakran.com' > build/web/CNAME
