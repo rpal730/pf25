@@ -10,7 +10,6 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
     options: const FirebaseOptions(
@@ -40,5 +39,13 @@ Future<void> main() async {
   configureInjection();
    usePathUrlStrategy();
 
-  runApp(MyApp());
+  // Check if a redirect path exists (from 404.html)
+  final redirect = window.sessionStorage['redirect'];
+  if (redirect != null && redirect.isNotEmpty) {
+    window.sessionStorage.remove('redirect');
+    WidgetsFlutterBinding.ensureInitialized();
+    runApp(MyApp(initialRoute: redirect));
+  } else {
+    runApp(MyApp());
+  }
 }
