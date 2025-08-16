@@ -23,7 +23,7 @@ jobs:
         with:
           flutter-version: '3.29.0'
           cache: true
-
+      
       - name: Enable web support
         run: flutter config --enable-web
 
@@ -32,6 +32,9 @@ jobs:
 
       - name: Build Flutter Web
         run: flutter build web --release
+      
+      - name: Add CNAME
+        run: echo 'vyakran.com' > build/web/CNAME
 
       - name: Fix base href for GitHub Pages (use relative)
         run: |

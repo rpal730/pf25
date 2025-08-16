@@ -1,11 +1,11 @@
 {
-    "name": "flutter_web_portfolio_2025",
-    "short_name": "flutter_web_portfolio_2025",
+    "name": "Vyakran - Just another digital footprint",
+    "short_name": "Vyakran",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Just another digital footprint",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
