@@ -29,25 +29,21 @@ jobs:
 
       - name: Get dependencies
         run: flutter pub get
-     
+
       # Build Flutter web with correct base-href
       - name: Build Flutter Web
         run: flutter build web --release --base-href /prototype/portfolio/
 
-      - name: Fix base href for GitHub Pages (subpath)
-        run: |
-          sed -i 's|<base href=\"/\">|<base href=\"/prototype/portfolio/\">|g' build/web/index.html
-
-      - name: Add CNAME (root-level only, so add separately later if needed)
-        run: echo 'vyakran.com' > build/web/CNAME
-
       - name: Prepare publish directory
         run: |
-          # Prevent Jekyll processing and enable client-side routing fallback
+          # Prevent Jekyll processing
           touch build/web/.nojekyll
+          # Add fallback for SPA refresh
           cp build/web/index.html build/web/404.html
+          # (Optional) Add CNAME only if you want vyakran.com root handling
+          echo 'vyakran.com' > build/web/CNAME
 
-      # Deploy to subfolder without deleting other projects
+      # Deploy only to the subdirectory prototype/portfolio
       - name: Deploy to gh-pages/prototype/portfolio
         uses: peaceiris/actions-gh-pages@v4
         with:
