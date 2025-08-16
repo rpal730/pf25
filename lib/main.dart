@@ -38,6 +38,7 @@ Future<void> main() async {
   HydratedBloc.storage = storage;
 
   configureInjection();
+   usePathUrlStrategy();
 
   runApp(MyApp());
 }
