@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart'; // safe to keep; won't be use
 import 'package:flutter_web_portfolio_2025/app/view/app.dart';
 import 'package:flutter_web_portfolio_2025/config/app_injection.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:web/web.dart';
 
 
 Future<void> main() async {
@@ -40,11 +41,11 @@ Future<void> main() async {
    usePathUrlStrategy();
 
   // Check if a redirect path exists (from 404.html)
-  final redirect = window.sessionStorage['redirect'];
+  final redirect = window.localStorage.getItem('redirect');
   if (redirect != null && redirect.isNotEmpty) {
-    window.sessionStorage.remove('redirect');
+    window.sessionStorage.removeItem('redirect');
     WidgetsFlutterBinding.ensureInitialized();
-    runApp(MyApp(initialRoute: redirect));
+    runApp(MyApp(initialDeeplink: redirect));
   } else {
     runApp(MyApp());
   }
