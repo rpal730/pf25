@@ -2,7 +2,7 @@ name: flutter_web_portfolio_2025
 description: "Vyakran - Just another digital footprint"
 publish_to: 'none' 
 
-version: 1.0.0+2
+version: 1.0.0+1
 
 environment:
   sdk: ^3.7.0
