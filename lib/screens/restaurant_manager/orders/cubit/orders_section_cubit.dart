@@ -187,61 +187,74 @@ class OrdersCubit extends Cubit<OrdersSectionState> {
       'updated_at': FieldValue.serverTimestamp(),
     });
   }
-bool _initialSnapshotHandled = false;
 
-void listenToNewOrders() {
-  log("listenToNewOrders called");
-  _ordersStreamSub?.cancel();
-  _initialSnapshotHandled = false;
+  bool _initialSnapshotHandled = false;
 
-  _ordersStreamSub = _streamAllOrders().listen((snapshot) {
-    var updated = List<OrderModel>.from(state.orders ?? []);
+  void listenToNewOrders() {
+    log("listenToNewOrders called");
+    _ordersStreamSub?.cancel();
+    _initialSnapshotHandled = false;
 
-    log("Doc changes: ${snapshot.docChanges.length}");
+    _ordersStreamSub = _streamAllOrders().listen((snapshot) {
+      var updated = List<OrderModel>.from(state.orders ?? []);
 
-    for (final change in snapshot.docChanges) {
-      final data = change.doc.data();
-      if (data == null) continue;
+      log("Doc changes: ${snapshot.docChanges.length}");
 
-      final incoming = OrderModel.fromJson(data)
-          .copyWith(snapshot: change.doc, id: change.doc.id);
+      for (final change in snapshot.docChanges) {
+        final data = change.doc.data();
+        if (data == null) continue;
 
-      switch (change.type) {
-        case DocumentChangeType.added:
-          if (!updated.any((o) => o.id == incoming.id)) {
-            // Play sound only if this isn't the initial load
-            if (_initialSnapshotHandled) {
-              playNotificationSound();
+        final incoming = OrderModel.fromJson(
+          data,
+        ).copyWith(snapshot: change.doc, id: change.doc.id);
+
+        switch (change.type) {
+          case DocumentChangeType.added:
+            if (!updated.any((o) => o.id == incoming.id)) {
+              // Play sound only if this isn't the initial load
+              if (_initialSnapshotHandled) {
+                playNotificationSound();
+              }
+              updated.insert(0, incoming);
             }
-            updated.insert(0, incoming);
-          }
-          break;
+            break;
 
-        case DocumentChangeType.modified:
-          final i = updated.indexWhere((o) => o.id == incoming.id);
-          if (i != -1) updated[i] = incoming;
-          break;
+          case DocumentChangeType.modified:
+            final i = updated.indexWhere((o) => o.id == incoming.id);
+            if (i != -1) updated[i] = incoming;
+            break;
 
-        case DocumentChangeType.removed:
-          updated.removeWhere((o) => o.id == incoming.id);
-          break;
+          case DocumentChangeType.removed:
+            updated.removeWhere((o) => o.id == incoming.id);
+            break;
+        }
       }
-    }
 
-    emit(state.copyWith(orders: updated));
+      emit(state.copyWith(orders: updated));
 
-    // Mark that the initial batch is processed after the first snapshot
-    if (!_initialSnapshotHandled) {
-      _initialSnapshotHandled = true;
-    }
-  });
-}
+      // Mark that the initial batch is processed after the first snapshot
+      if (!_initialSnapshotHandled) {
+        _initialSnapshotHandled = true;
+      }
+    });
+  }
+
   /// Stream all orders; Firestore will only send changed docs in docChanges.
   Stream<QuerySnapshot<Map<String, dynamic>>> _streamAllOrders() {
+    // Get today's start and end times
+    final now = DateTime.now();
+    final startOfDay = DateTime(now.year, now.month, now.day);
+    final endOfDay = startOfDay.add(Duration(days: 1));
+
     return FirebaseFirestore.instance
         .collection('restaurants')
         .doc(restaurantId)
         .collection('orders')
+        .where(
+          'created_at',
+          isGreaterThanOrEqualTo: Timestamp.fromDate(startOfDay),
+          isLessThan: Timestamp.fromDate(endOfDay),
+        )
         .orderBy('created_at')
         .snapshots();
   }
